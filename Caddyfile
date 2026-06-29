@@ -1,9 +1,14 @@
-# Production setup - customize for your domain:
-# yourdomain.com {
-#     reverse_proxy site:80
-# }
+# Production setup for vosvidemus.online:
+vosvidemus.online {
+	reverse_proxy site:80
+}
 
-# Development:
+# Also handle www subdomain:
+www.vosvidemus.online {
+	reverse_proxy site:80
+}
+
+# Development fallback:
 :80 {
 	reverse_proxy site:80
 }

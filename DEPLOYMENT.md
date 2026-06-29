@@ -56,16 +56,19 @@ EOF
 
 ### 4. Configure Caddy & DNS
 
-Edit `Caddyfile` with your domain:
+DNS A records (already configured in Caddyfile for vosvidemus.online):
+- `vosvidemus.online` → instance IP
+- `www.vosvidemus.online` → instance IP
 
+Caddyfile is pre-configured. If changing domain, edit:
 ```
 yourdomain.com {
     reverse_proxy site:80
 }
+www.yourdomain.com {
+    reverse_proxy site:80
+}
 ```
-
-Point DNS A record:
-- `yourdomain.com` → instance IP
 
 ### 5. Start Containers
 
