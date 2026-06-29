@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio-site
+    expose:
+      - 80
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:alpine
+    container_name: caddy-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    restart: unless-stopped
+    environment:
+      - ACME_AGREE=true
+
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - ROOT_URL=https://git.example.com
+      - SSH_DOMAIN=git.example.com
+      - DB_TYPE=sqlite3
+      - INSTALL_LOCK=true
+      - REQUIRE_SIGNIN_VIEW=false
+      - DISABLE_REGISTRATION=true
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    expose:
+      - 3000
+
+volumes:
+  caddy-data:
+  caddy-config:
+  gitea-data:

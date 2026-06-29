@@ -1,0 +1,17 @@
+{
+	auto_https off
+}
+
+# Main portfolio site
+:80 {
+	reverse_proxy site:80
+}
+
+# Development setup - customize these for your domain
+# Example: yourdomain.com {
+#     reverse_proxy site:80
+# }
+#
+# git.yourdomain.com {
+#     reverse_proxy gitea:3000
+# }
