@@ -618,12 +618,12 @@ impacket-ntlmrelayx -6 -t ldaps://<DC-IPv4> -wh <fakeservice>.<domain>.local -l 
 				const content = [
 					"",
 					"┌──────────────────────────────────────────────────────────────────────────────┐",
-					`│  ${post.title.padEnd(74)} │`,
+					`│  ${post.title.padEnd(74)}  │`,
 					"├──────────────────────────────────────────────────────────────────────────────┤",
 					"│                                                                              │",
 					...wrappedLines.map(line => {
 						const padded = line.padEnd(74);
-						return `│  ${padded} │`;
+						return `│  ${padded}  │`;
 					}),
 					"│                                                                              │",
 					"│  [ 0 ] back to message board                                                │",
