@@ -100,12 +100,11 @@
 │                                                                              │
 │  [ 1 ] MESSAGE BOARD                                                         │
 │  [ 2 ] FILE AREA                                                             │
-│  [ 3 ] WHO'S ONLINE                                                          │
 │                                                                              │
 │  [ 0 ] LOG OFF                                                               │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1-3] select | [0] exit';
+				this.hint.textContent = '[1-2] select | [0] exit';
 			}
 			handleKey(e) {
 				if (!this.root.classList.contains('active')) return;
@@ -115,14 +114,12 @@
 					else if (this.state.mode === 'msglist') this.menu();
 					else if (this.state.mode === 'post') this.messagelist();
 					else if (this.state.mode === 'file') this.menu();
-					else if (this.state.mode === 'online') this.menu();
 					return;
 				}
 				if (this.state.mode === 'dial-in' && (e.key === ' ' || e.key === 'Enter')) { this.setSeen(); this.menu(); return; }
 				if (this.state.mode === 'menu') {
 					if (e.key === '1') this.messagelist();
 					else if (e.key === '2') this.filearea();
-					else if (e.key === '3') this.whosonline();
 				}
 				else if (this.state.mode === 'msglist' && e.key === '1') this.viewpost();
 				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
@@ -185,23 +182,6 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
 				this.hint.textContent = '[1] download | [0] main menu';
-			}
-			whosonline() {
-				this.state.mode = 'online';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  WHO'S ONLINE                                                               │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  > SYSOP (San Diego, CA - idle 2m)                                         │
-│  > you (San Diego, CA - active)                                            │
-│  > netrunner (Tokyo, JP - active)                                          │
-│  > h4x0r (Berlin, DE - idle 8m)                                            │
-│  > cipher (London, UK - active)                                            │
-│                                                                              │
-│  [ 0 ] main menu                                                            │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[0] main menu';
 			}
 		}
 		new BBS();
