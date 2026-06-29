@@ -26,37 +26,38 @@
 <body>
 	<div class="invisible-link" id="bbsLink"></div>
 	<div class="page">
-		<pre>┌──────────────────────────────────────────────────────────────────────────────┐
+		<pre>
+┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│                           <a href="#">    CONNOR DEDIC    </a>                             │
+│                           <a href="#">    CONNOR DEDIC    </a>                               │
 │                   Offensive Security Researcher & Red Teamer                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│  Cyber Deception Engineer at Space Dynamics Laboratory (Jan–May 2026).      │
+│  Cyber Deception Engineer at Space Dynamics Laboratory (Jan–May 2026).       │
 │                                                                              │
-│  Specialized in Windows malware development, Active Directory exploitation  │
-│  and offensive tooling. Contributing researcher on novel cyber deception    │
-│  techniques. SOC analyst, CTF creator. BS Cybersecurity (BYU-Idaho 2026).  │
+│  Specialized in Windows malware development, Active Directory exploitation   │
+│  and offensive tooling. Contributing researcher on novel cyber deception     │
+│  techniques. SOC analyst, CTF creator. BS Cybersecurity (BYU-Idaho 2026).    │
 │                                                                              │
 │  [ OFFENSIVE EXPERTISE ]                                                     │
-│  └─ Windows malware development, AD exploitation, red team operations       │
-│  └─ Impacket, BloodHound, Mimikatz, Empire, reverse engineering             │
+│  └─ Windows malware development, AD exploitation, red team operations        │
+│  └─ Impacket, BloodHound, Mimikatz, Empire, reverse engineering              │
 │                                                                              │
 │  [ DEFENSIVE EXPERTISE ]                                                     │
-│  └─ SOC operations (Splunk, Palo Alto, Crowdstrike)                        │
-│  └─ Threat hunting, incident response, intrusion detection                  │
+│  └─ SOC operations (Splunk, Palo Alto, Crowdstrike)                          │
+│  └─ Threat hunting, incident response, intrusion detection                   │
 │                                                                              │
 │  [ TECHNICAL SKILLS ]                                                        │
-│  └─ Languages: Python, C, Go, PowerShell, Bash, JavaScript                 │
-│  └─ Infrastructure: AWS, Docker, Git, Active Directory                      │
+│  └─ Languages: Python, C, Go, PowerShell, Bash, JavaScript                   │
+│  └─ Infrastructure: AWS, Docker, Git, Active Directory                       │
 │                                                                              │
 │  [ CERTIFICATIONS ]                                                          │
-│  └─ AWS Cloud Practitioner, Security+, PenTest+, CySA+, PNPT (incoming)   │
+│  └─ AWS Cloud Practitioner, Security+, PenTest+, CySA+, PNPT (incoming)      │
 │                                                                              │
-│  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ FULL RESUME ]</a>            │
+│  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ FULL RESUME ]</a>                           │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘</pre>
 	</div>
@@ -97,11 +98,11 @@
 
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│  [ 1 ] MESSAGE BOARD                                                        │
-│  [ 2 ] FILE AREA                                                            │
-│  [ 3 ] WHO'S ONLINE                                                         │
+│  [ 1 ] MESSAGE BOARD                                                         │
+│  [ 2 ] FILE AREA                                                             │
+│  [ 3 ] WHO'S ONLINE                                                          │
 │                                                                              │
-│  [ 0 ] LOG OFF                                                              │
+│  [ 0 ] LOG OFF                                                               │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
 				this.hint.textContent = '[1-3] select | [0] exit';
@@ -109,20 +110,37 @@
 			handleKey(e) {
 				if (!this.root.classList.contains('active')) return;
 				if (e.key === 'Escape') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; return; }
+				if (e.key === '0' && this.state.mode !== 'dial-in') {
+					if (this.state.mode === 'menu') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; }
+					else if (this.state.mode === 'msglist') this.menu();
+					else if (this.state.mode === 'post') this.messagelist();
+					else if (this.state.mode === 'file') this.menu();
+					else if (this.state.mode === 'online') this.menu();
+					return;
+				}
 				if (this.state.mode === 'dial-in' && (e.key === ' ' || e.key === 'Enter')) { this.setSeen(); this.menu(); return; }
 				if (this.state.mode === 'menu') {
-					if (e.key === '1') this.messageboard();
+					if (e.key === '1') this.messagelist();
 					else if (e.key === '2') this.filearea();
 					else if (e.key === '3') this.whosonline();
-					else if (e.key === '0') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; }
 				}
-				else if (this.state.mode === 'post' && e.key === '0') this.messageboard();
-				else if (this.state.mode === 'file' && e.key === '0') this.menu();
-				else if (this.state.mode === 'online' && e.key === '0') this.menu();
+				else if (this.state.mode === 'msglist' && e.key === '1') this.viewpost();
 				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
-				else if (this.state.mode === 'post' && e.key === '1') this.messageboard();
 			}
-			messageboard() {
+			messagelist() {
+				this.state.mode = 'msglist';
+				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
+│  MESSAGE BOARD                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [ 1 ] Active Directory Attacks                                  2026-06-20 │
+│                                                                              │
+│  [1] read | [0] main menu                                                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.hint.textContent = '[1] read | [0] main menu';
+			}
+			viewpost() {
 				this.state.mode = 'post';
 				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
 │  Active Directory Attacks                                                   │
@@ -150,10 +168,10 @@
 │  lsadump::lsa /inject /name:krbtgt                                          │
 │  kerberos::golden /User:<User> /domain:<domain> /sid:<SID>                 │
 │                                                                              │
-│  [ 1 ] back | [ 0 ] main menu                                              │
+│  [ 0 ] back to message list                                                │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1] back | [0] main menu';
+				this.hint.textContent = '[0] back | [ESC] exit';
 			}
 			filearea() {
 				this.state.mode = 'file';
