@@ -25,6 +25,8 @@
 
 		html {
 			color-scheme: dark;
+			overflow: hidden;
+			height: 100%;
 		}
 
 		body {
@@ -34,8 +36,8 @@
 			line-height: 1.0;
 			font-size: 14px;
 			-webkit-text-size-adjust: 140%;
-			overflow-y: auto;
-			overflow-x: hidden;
+			overflow: hidden;
+			height: 100%;
 		}
 
 		body.bbs-active {
@@ -341,6 +343,8 @@
 						this.showMainMenu();
 					} else if (this.state.mode === "post-view" && key === "0") {
 						this.showMessageBoard();
+					} else if (this.state.mode === "file-area" && key === "1") {
+						window.location.href = "/ConnorDedicResume.pdf";
 					} else if (this.state.mode === "file-area" && key === "0") {
 						this.showMainMenu();
 					} else if (this.state.mode === "whos-online" && key === "0") {
@@ -658,8 +662,11 @@ impacket-ntlmrelayx -6 -t ldaps://<DC-IPv4> -wh <fakeservice>.<domain>.local -l 
 					"│  WHO'S ONLINE                                                                   │",
 					"├────────────────────────────────────────────────────────────────────────────────────┤",
 					"│                                                                                  │",
-					"│  > SYSOP (idle 2m)                                                              │",
-					"│  > you (active)                                                                 │",
+					"│  > SYSOP (San Diego, CA - idle 2m)                                             │",
+					"│  > you (San Diego, CA - active)                                                │",
+					"│  > netrunner (Tokyo, JP - active)                                              │",
+					"│  > h4x0r (Berlin, DE - idle 8m)                                                │",
+					"│  > cipher (London, UK - active)                                                │",
 					"│                                                                                  │",
 					"│  [ 0 ] main menu                                                                │",
 					"│                                                                                  │",
