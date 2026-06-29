@@ -74,7 +74,7 @@
 		}
 
 		.section {
-			margin: 2rem 0;
+			margin: 3rem 0;
 		}
 
 		.section-title {
@@ -82,9 +82,9 @@
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			color: var(--accent-yellow);
-			margin-bottom: 1rem;
+			margin-bottom: 1.5rem;
 			border-bottom: 1px solid var(--border);
-			padding-bottom: 0.5rem;
+			padding-bottom: 0.75rem;
 		}
 
 		.resume-content {
@@ -241,13 +241,13 @@
 			</div>
 
 			<div class="section">
-				<div class="section-title">Current Role</div>
+				<div class="section-title">Recent Experience</div>
 				<div class="resume-content">
 					<div class="resume-item">
 						<strong>Cyber Deception Engineer</strong> — Space Dynamics Laboratory (Jan–May 2026)
 					</div>
 					<div class="resume-item">
-						Cataloging and developing cyber deception techniques. Conducting research on novel approaches across AI, ICS, AD, and bespoke systems. Contributing to upcoming published paper on cyber deception.
+						Cataloged and developed cyber deception techniques. Conducted research on novel approaches across AI, ICS, AD, and bespoke systems. Contributed to upcoming published paper on cyber deception.
 					</div>
 				</div>
 			</div>
@@ -360,16 +360,22 @@
 
 			renderDialIn() {
 				const seq = [
+					"",
+					"",
 					"CONNECT 56000",
 					"CARRIER ESTABLISHED",
 					"HANDSHAKE...",
 					"",
+					"",
 					"       ◄ NETRUNNER INCOMING ►",
+					"",
 					"",
 					"    WELCOME TO THE NETWORK",
 					"    =========================",
 					"",
+					"",
 					"[PRESS ANY KEY TO CONTINUE]",
+					"",
 				];
 
 				this.dialInSeq.innerHTML = seq
@@ -398,14 +404,13 @@
 				const menu = [
 					"",
 					"    ╔══════════════════════════════╗",
-					"    ║   MAINFRAME DIRECTORY        ║",
+					"    ║  MAINFRAME DIRECTORY         ║",
 					"    ╚══════════════════════════════╝",
 					"",
 					"  [ 1 ] MESSAGE BOARD",
 					"  [ 2 ] FILE AREA",
 					"  [ 3 ] PROJECTS / WHO AM I",
 					"  [ 4 ] GUESTBOOK",
-					"  [ 5 ] WHO'S ONLINE",
 					"",
 					"  [ 0 ] LOG OFF",
 					"",
@@ -415,7 +420,7 @@
 					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
 					.join("");
 
-				this.updateHint("[1-5] select | [0] exit | [ESC] return");
+				this.updateHint("[1-4] select | [0] exit | [ESC] return");
 			}
 
 			handleMenuSelection(key) {
@@ -453,13 +458,8 @@
 					"    ╚══════════════════════════════╝",
 					"",
 					"  [ 1 ] AD exploitation guide   2026-06-20",
-					"  [ 2 ] AD exploitation         2026-06-15",
-					"  [ 3 ] Windows malware dev     2026-06-10",
-					"  [ 4 ] SOC threat hunting      2026-06-02",
-					"  [ 5 ] Offensive infra         2026-05-25",
-					"  [ 6 ] CTF writeups            2026-05-18",
 					"",
-					"  [1-6] read | [0] main menu",
+					"  [1] read | [0] main menu",
 					"",
 				];
 
@@ -481,11 +481,9 @@
 					"    ║      FILE AREA               ║",
 					"    ╚══════════════════════════════╝",
 					"",
-					"  [ 1 ] resume.txt              18 KB",
-					"  [ 2 ] ctf_writeups            142 KB",
-					"  [ 3 ] malware_research        156 KB",
+					"  [ 1 ] ConnorDedicResume.pdf   120 KB",
 					"",
-					"  [1-3] select | [0] main menu",
+					"  [1] select | [0] main menu",
 					"",
 				];
 
