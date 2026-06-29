@@ -46,8 +46,9 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			min-height: 100vh;
+			height: 100vh;
 			padding: 2rem 1rem;
+			overflow: hidden;
 		}
 
 		.portfolio-content {
@@ -331,11 +332,20 @@
 
 				const key = e.key;
 				if (["1", "2", "3", "0"].includes(key)) {
-					if (this.state.mode === "message-board" && key === "1") {
+					// Only allow specific keys in specific modes
+					if (this.state.mode === "main-menu") {
+						this.handleMenuSelection(key);
+					} else if (this.state.mode === "message-board" && key === "1") {
 						this.showPostView(0);
-						return;
+					} else if (this.state.mode === "message-board" && key === "0") {
+						this.showMainMenu();
+					} else if (this.state.mode === "post-view" && key === "0") {
+						this.showMessageBoard();
+					} else if (this.state.mode === "file-area" && key === "0") {
+						this.showMainMenu();
+					} else if (this.state.mode === "whos-online" && key === "0") {
+						this.showMainMenu();
 					}
-					this.handleMenuSelection(key);
 				}
 			}
 
@@ -407,21 +417,21 @@
 
 			renderMainMenu() {
 				const banner = [
-					"██╗   ██╗ ██████╗ ███████╗    ██╗   ██╗██╗██████╗ ███████╗███╗   ███╗██╗   ██╗███████╗",
-					"██║   ██║██╔═══██╗██╔════╝    ██║   ██║██║██╔══██╗██╔════╝████╗ ████║██║   ██║██╔════╝",
-					"██║   ██║██║   ██║███████╗    ██║   ██║██║██║  ██║█████╗  ██╔████╔██║██║   ██║███████╗",
+					" ██╗   ██╗ ██████╗ ███████╗    ██╗   ██╗██╗██████╗ ███████╗███╗   ███╗██╗   ██╗███████╗",
+					" ██║   ██║██╔═══██╗██╔════╝    ██║   ██║██║██╔══██╗██╔════╝████╗ ████║██║   ██║██╔════╝",
+					" ██║   ██║██║   ██║███████╗    ██║   ██║██║██║  ██║█████╗  ██╔████╔██║██║   ██║███████╗",
 					"╚██╗ ██╔╝██║   ██║╚════██║    ╚██╗ ██╔╝██║██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║╚════██║",
 					" ╚████╔╝ ╚██████╔╝███████║     ╚████╔╝ ██║██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝███████║",
 					"  ╚═══╝   ╚═════╝ ╚══════╝      ╚═══╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝",
 					"",
 					"┌────────────────────────────────────────────────────────────────────────────────────┐",
-					"│                                                                                  │",
-					"│  [ 1 ] MESSAGE BOARD                                                              │",
-					"│  [ 2 ] FILE AREA                                                                  │",
-					"│  [ 3 ] WHO'S ONLINE                                                               │",
-					"│                                                                                  │",
-					"│  [ 0 ] LOG OFF                                                                    │",
-					"│                                                                                  │",
+					"│                                                                                          │",
+					"│  [ 1 ] MESSAGE BOARD                                                                        │",
+					"│  [ 2 ] FILE AREA                                                                           │",
+					"│  [ 3 ] WHO'S ONLINE                                                                      │",
+					"│                                                                                             │",
+					"│  [ 0 ] LOG OFF                                                                          │",
+					"│                                                                                        │",
 					"└────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
@@ -494,6 +504,29 @@
 				this.updateHint("[1] read | [0] main menu | [ESC] exit");
 			}
 
+			wrapLines(text, width = 76) {
+				const wrapped = [];
+				const lines = text.split("\n");
+
+				for (const line of lines) {
+					if (line.length <= width) {
+						wrapped.push(line);
+					} else {
+						let remaining = line;
+						while (remaining.length > 0) {
+							if (remaining.length <= width) {
+								wrapped.push(remaining);
+								break;
+							}
+							const breakPoint = remaining.lastIndexOf(" ", width) || width;
+							wrapped.push(remaining.substring(0, breakPoint));
+							remaining = remaining.substring(breakPoint).trim();
+						}
+					}
+				}
+				return wrapped;
+			}
+
 			showPostView(index) {
 				this.state.mode = "post-view";
 				this.mainMenu?.classList.remove("active");
@@ -563,15 +596,15 @@ impacket-ntlmrelayx -6 -t ldaps://<DC-IPv4> -wh <fakeservice>.<domain>.local -l 
 				];
 
 				const post = posts[index];
-				const lines = post.content.split("\n");
+				const wrappedLines = this.wrapLines(post.content, 76);
 				const content = [
 					"",
 					"┌────────────────────────────────────────────────────────────────────────────────────┐",
-					`│  ${post.title.padEnd(78)} │`,
+					`│  ${post.title.padEnd(76)} │`,
 					"├────────────────────────────────────────────────────────────────────────────────────┤",
 					"│                                                                                  │",
-					...lines.map(line => {
-						const padded = line.substring(0, 78).padEnd(78);
+					...wrappedLines.map(line => {
+						const padded = line.padEnd(76);
 						return `│  ${padded} │`;
 					}),
 					"│                                                                                  │",
