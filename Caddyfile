@@ -7,11 +7,7 @@
 	reverse_proxy site:80
 }
 
-# Development setup - customize these for your domain
-# Example: yourdomain.com {
+# Production setup - customize for your domain:
+# yourdomain.com {
 #     reverse_proxy site:80
-# }
-#
-# git.yourdomain.com {
-#     reverse_proxy gitea:3000
 # }

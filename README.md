@@ -17,6 +17,7 @@ A personal portfolio site for an offensive security researcher. Features a clean
 
 - Node.js 22+
 - npm
+- Docker & Docker Compose (for full stack testing)
 
 ### Development
 
@@ -37,6 +38,14 @@ npm run build
 
 Output is in `site/dist/`.
 
+### Test Full Stack Locally
+
+```bash
+docker compose up -d
+# Visit http://localhost
+docker compose down
+```
+
 ## Deployment
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete first-boot setup and CI/CD instructions.
@@ -55,10 +64,10 @@ portfolio/
 │   ├── src/
 │   │   └── pages/index.astro  # Front page + BBS
 │   ├── public/
-│   │   └── index.html         # Static fallback (dev)
+│   │   └── resume.txt
 │   └── dist/                  # Built output (production)
-├── Dockerfile                 # Multi-stage build
-├── docker-compose.yml         # Services: site, caddy, gitea
+├── Dockerfile                 # Multi-stage: Node → nginx:alpine
+├── docker-compose.yml         # Services: site, caddy
 ├── Caddyfile                  # Reverse proxy + TLS
 ├── nginx.conf                 # Nginx config (in container)
 ├── .github/workflows/deploy.yml
