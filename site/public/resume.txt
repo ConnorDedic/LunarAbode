@@ -1,0 +1,90 @@
+CONNOR DEDIC
+858-361-0166 | connordedicpro@gmail.com | github.com/ConnorDedic | linkedin.com/in/connor-dedic
+
+SUMMARY
+Security engineer specializing in Windows malware development, cyber deception, and offensive
+tooling in C, Python and Go. Contributing researcher on an upcoming publication covering novel
+cyber deception techniques.
+
+WORK EXPERIENCE
+
+Cyber Deception Engineer                                            January 2026 - May 2026
+Space Dynamics Laboratory                                                          Logan, UT
+• Cataloged, researched and developed cyber deception in preparation for presentations and
+  an upcoming published paper
+• Conducted forward-looking research to assess the feasibility and operational impact of
+  novel cyber deception techniques
+• Designed a taxonomy and methodology for applying cyber deception techniques across AI, ICS,
+  AD, and bespoke systems
+
+Information Security Operations Center Analyst              August 2025 - December 2025
+The Church of Jesus Christ of Latter-day Saints                        Riverton, UT
+• Analyzing, triaging, and responding to cyber threats targeting worldwide infrastructure
+  and global leaders
+• Utilizing enterprise security tools including Splunk, Palo Alto Panorama, Microsoft Defender,
+  Azure, BlueCat, BART and Crowdstrike to investigate phishing, malware, and threat events
+• Collaborating in a 24/7 SOC environment to protect critical systems and sensitive information
+  from real-world adversaries across a global network
+
+Course Architect for Cybersecurity Fundamentals & Security Assessment    November 2024 - July 2025
+Brigham Young University - Idaho                                      Rexburg, ID
+• Led 30+ students in learning the basics of cyber defensive operations and penetration testing
+• Developed a defense simulation using Bash and 40+ virtual machines to allow students to
+  simulate defending a live multi-phase cyberattack following MITRE ATT&CK methodology
+• Deployed vSphere to manage 60+ cloud virtual machines for student labs including attack
+  and defense infrastructure
+
+Security Operations Center Analyst Tier 1                      January 2025 - May 2025
+Rexburg City                                                        Rexburg, ID
+• Leveraged Security Onion to detect and report various cyber threats to ICS and key infrastructure
+• Applied a structured threat hunt methodology to identify active attacks, triage findings,
+  and report according to the playbook
+• Analyzed hundreds of alerts, tracked attack patterns, and streamlined ticket queue eliminating
+  false positives
+
+PRACTICAL EXPERIENCE
+
+CTF Creator                                                    August 2025 - Present
+BSides Utah                                                              Remote
+• Created Capture the Flag challenges for BSidesSLC and BSidesRedRocks
+• Challenge categories: PWN, web, cryptography, and reverse engineering
+• Technologies: C, Python, Go, Docker, Bash, Nginx
+
+Society of Cybersecurity                                    January 2024 - August 2025
+Brigham Young University - Idaho                                  Rexburg, ID
+• Placed 3rd in cybersecurity category at HackUSU 2025 out of 600+ competitors
+• Placed 5th at 2024 Rocky Mountain Collegiate Cyber Defense Competition regional in Denver
+• Vice President and competition team captain; led and trained 15+ students
+
+Technical Projects                                           January 2022 - Present
+Security Engineering
+• Developed comprehensive IAM system by integrating WordPress with Apereo CAS and Active Directory
+• Handled 15+ AWS services: EC2, Lambda, RDS/DynamoDB, Cognito, EBS, Fargate
+• Deployed Suricata, Security Onion, Splunk, ELK, Sysmon, Docker
+• Built networks with Palo Alto and Fortigate firewalls, Duo MFA, load balancing
+
+Red Team Operations
+• Studied and conducted Active Directory attack/defense techniques
+• Proficient with: Impacket, BloodHound, MiTM6, NetExec, Empire, Mimikatz, Sliver, PSExec
+• Created homelab with HP ProLiant DL380P for offensive infrastructure
+• Tools: Burp Suite, Metasploit, Nessus, Recon-NG, Social Engineering Toolkit
+
+EDUCATION
+
+Bachelor of Science - Cybersecurity                            January 2022 - July 2026
+Brigham Young University - Idaho                                  Rexburg, ID
+Key Courses: Systems Security 1 & 2, Security Assessment, Security Operations, AWS and Cloud
+Computing, Python 1 & 2, DevOps and IT Management, Advanced PowerShell, Networking 1 & 2,
+Identity and Access Management
+
+CERTIFICATIONS
+• AWS Cloud Practitioner
+• CompTIA Security+
+• CompTIA PenTest+
+• CompTIA CySA+
+• PNPT (Practical Network Penetration Tester) - Upcoming
+
+SKILLS
+Languages: Python, C, Go, PowerShell, Bash, JavaScript, HTML, CSS
+Tools & Platforms: Splunk, Palo Alto, Crowdstrike, Metasploit, Burp Suite, BloodHound,
+Active Directory, AWS, Docker, Git, Suricata, Security Onion, ELK Stack
