@@ -10,13 +10,14 @@
 	<title>Connor Dedic | Offensive Security Researcher</title>
 	<style>
 		:root {
-			--bg: #0a0a0f;
-			--fg: #e8e6d8;
-			--accent-yellow: #fcee0a;
-			--accent-magenta: #ff2e88;
-			--accent-cyan: #00e5ff;
-			--text-muted: #8a8a94;
-			--border: #2a2a34;
+			--bg: #000000;
+			--fg: #cccccc;
+			--accent-red: #ff0000;
+			--accent-bright-red: #ff3333;
+			--accent-yellow: #ffff00;
+			--accent-green: #00ff00;
+			--text-muted: #666666;
+			--border: #333333;
 		}
 
 		* {
@@ -81,7 +82,7 @@
 			font-size: 0.9rem;
 			text-transform: uppercase;
 			letter-spacing: 1px;
-			color: var(--accent-yellow);
+			color: var(--accent-red);
 			margin-bottom: 1.5rem;
 			border-bottom: 1px solid var(--border);
 			padding-bottom: 0.75rem;
@@ -98,7 +99,7 @@
 		}
 
 		.resume-item strong {
-			color: var(--accent-cyan);
+			color: var(--accent-green);
 		}
 
 		.contact-links {
@@ -109,13 +110,13 @@
 		}
 
 		a {
-			color: var(--accent-yellow);
+			color: var(--accent-red);
 			text-decoration: none;
 			transition: color 0.2s;
 		}
 
 		a:hover {
-			color: var(--accent-magenta);
+			color: var(--accent-bright-red);
 		}
 
 		.dial-in-btn {
@@ -134,8 +135,9 @@
 		}
 
 		.dial-in-btn:hover {
-			color: var(--accent-yellow);
-			border-color: var(--accent-yellow);
+			background: var(--accent-red);
+			color: var(--bg);
+			box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 		}
 
 		.dial-in-btn:active {
