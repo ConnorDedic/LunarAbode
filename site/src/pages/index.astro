@@ -275,8 +275,6 @@
 │  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ FULL RESUME ]</a>            │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
-
-				<button class="dial-in-btn" id="dialInBtn">[ > ENTER BBS ]</button>
 </pre>
 		</div>
 	</div>
@@ -314,7 +312,6 @@
 			}
 
 			setupEventListeners() {
-				document.getElementById("dialInBtn")?.addEventListener("click", () => this.showBbs());
 				document.getElementById("bbsLink")?.addEventListener("click", () => this.showBbs());
 				window.addEventListener("keydown", (e) => this.handleKeydown(e));
 			}
