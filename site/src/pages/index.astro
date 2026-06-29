@@ -424,6 +424,15 @@
 			}
 
 			handleMenuSelection(key) {
+				if (this.state.mode === "message-board" && key === "1") {
+					this.showPost(0);
+					return;
+				}
+				if (this.state.mode === "post-view" && key === "0") {
+					this.showMessageBoard();
+					return;
+				}
+
 				switch (key) {
 					case "1":
 						this.showMessageBoard();
@@ -437,13 +446,51 @@
 					case "4":
 						this.showGuestbook();
 						break;
-					case "5":
-						this.showWhosOnline();
-						break;
 					case "0":
 						this.logOff();
 						break;
 				}
+			}
+
+			showPost(index) {
+				this.state.mode = "post-view";
+				this.mainMenu?.classList.remove("active");
+				this.menuArea?.classList.add("active");
+
+				const posts = [
+					{
+						title: "Active Directory Exploitation Guide",
+						date: "2026-06-20",
+						preview: `A comprehensive reference for AD red team operations covering:
+- LLMNR poisoning & SMB relay attacks
+- Password enumeration & spraying
+- Kerberoasting & Golden tickets
+- Post-compromise techniques
+- IPv6 DNS takeover attacks
+- Security control evasion
+
+Read full post at: connordedic.dev/blog`
+					}
+				];
+
+				const post = posts[index];
+				const content = [
+					"",
+					"    ╔══════════════════════════════╗",
+					`    ║ ${post.title.substring(0, 26).padEnd(26)} ║`,
+					"    ╚══════════════════════════════╝",
+					"",
+					...post.preview.split("\n"),
+					"",
+					"  [ 0 ] back to message board",
+					"",
+				];
+
+				this.menuArea.innerHTML = content
+					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
+					.join("");
+
+				this.updateHint("[0] back | [ESC] exit");
 			}
 
 			showMessageBoard() {
@@ -467,7 +514,7 @@
 					.map((line) => `<div>${this.escapeHtml(line)}</div>`)
 					.join("");
 
-				this.updateHint("[0] main menu | [ESC] exit");
+				this.updateHint("[1] read | [0] main menu | [ESC] exit");
 			}
 
 			showFileArea() {
