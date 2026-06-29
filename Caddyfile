@@ -1,8 +1,9 @@
-{
-	auto_https off
-}
+# Production setup - customize for your domain:
+# yourdomain.com {
+#     reverse_proxy site:80
+# }
 
-# Main portfolio site
+# Development:
 :80 {
 	reverse_proxy site:80
 }
