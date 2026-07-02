@@ -115,6 +115,8 @@ a:hover {
 	#bbs-content {
 		font-size: 14px;
 		padding: 0.2rem 0.5rem;
+		overflow-x: auto;
+		overflow-y: hidden;
 	}
 
 	.hint {
@@ -145,6 +147,8 @@ a:hover {
 	#bbs-content {
 		font-size: 12px;
 		padding: 0.1rem 0.3rem;
+		overflow-x: auto;
+		overflow-y: hidden;
 	}
 
 	.hint {
