@@ -113,6 +113,13 @@ a:hover {
 
 	.page {
 		padding: 0.5rem;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	#bbs-root.active {
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 
 	#bbs-content {
@@ -123,6 +130,8 @@ a:hover {
 
 	.bbs-container {
 		overflow: auto;
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 
 	.hint {
@@ -149,6 +158,13 @@ a:hover {
 
 	.page {
 		padding: 0.25rem;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	#bbs-root.active {
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 
 	#bbs-content {
@@ -159,6 +175,8 @@ a:hover {
 
 	.bbs-container {
 		overflow: auto;
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 
 	.hint {
