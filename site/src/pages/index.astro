@@ -22,28 +22,29 @@
 
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│  Cyber Deception Engineer at Space Dynamics Laboratory (Jan–May 2026).       │
+│  Security engineer specializing in Windows malware development, cyber        │
+│  deception, and offensive tooling in C, Python and Go.                       │
 │                                                                              │
-│  Specialized in Windows malware development, Active Directory exploitation   │
-│  and offensive tooling. Contributing researcher on novel cyber deception     │
-│  techniques. SOC analyst, CTF creator. BS Cybersecurity (BYU-Idaho 2026).    │
+│  [ EXPERIENCE ]                                                              │
+│  └─ Cyber Deception Engineer @ Space Dynamics Lab (Jan-May 2026)            │
+│  └─ SOC Analyst @ LDS + Course Architect @ BYU-Idaho (Aug 2025-Now)         │
+│  └─ Security Onion Analyst @ Rexburg City (Jan-May 2025)                    │
 │                                                                              │
-│  [ OFFENSIVE EXPERTISE ]                                                     │
-│  └─ Windows malware development, AD exploitation, red team operations        │
-│  └─ Impacket, BloodHound, Mimikatz, Empire, reverse engineering              │
+│  [ SKILLS ]                                                                  │
+│  └─ Offensive: Malware dev, AD exploitation, C2 frameworks, red team        │
+│  └─ Defensive: SOC ops, threat hunting, incident response                   │
+│  └─ Languages: C, Python, Go, PowerShell, Bash, JavaScript                  │
+│  └─ Infrastructure: AWS, Docker, Palo Alto, Splunk, Active Directory        │
 │                                                                              │
-│  [ DEFENSIVE EXPERTISE ]                                                     │
-│  └─ SOC operations (Splunk, Palo Alto, Crowdstrike)                          │
-│  └─ Threat hunting, incident response, intrusion detection                   │
+│  [ EDUCATION ]                                                               │
+│  └─ BS Cybersecurity (BYU-Idaho), Security+, PenTest+, CySA+, AWS CP        │
+│  └─ PNPT (incoming) | HackUSU 2025 3rd | Rocky Mountain 2024 5th            │
 │                                                                              │
-│  [ TECHNICAL SKILLS ]                                                        │
-│  └─ Languages: Python, C, Go, PowerShell, Bash, JavaScript                   │
-│  └─ Infrastructure: AWS, Docker, Git, Active Directory                       │
+│  [ RESEARCH ]                                                                │
+│  └─ C2 framework w/ RL-based adaptive evasion (in progress)                 │
+│  └─ CTF creator @ BSides Utah | Cyber deception publication researcher      │
 │                                                                              │
-│  [ CERTIFICATIONS ]                                                          │
-│  └─ AWS Cloud Practitioner, Security+, PenTest+, CySA+, PNPT (incoming)      │
-│                                                                              │
-│  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ FULL RESUME ]</a>                           │
+│  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ RESUME ]</a>                                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘</pre>
 	</div>
@@ -84,15 +85,13 @@
 
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│  [ 1 ] PROJECTS & RESEARCH                                                   │
-│  [ 2 ] WORK EXPERIENCE                                                       │
-│  [ 3 ] EDUCATION & CERTS                                                     │
-│  [ 4 ] RESUME (PDF)                                                          │
+│  [ 1 ] MESSAGE BOARD                                                         │
+│  [ 2 ] FILE AREA                                                             │
 │                                                                              │
 │  [ 0 ] LOG OFF                                                               │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1-4] select | [0] exit';
+				this.hint.textContent = '[1-2] select | [0] exit';
 			}
 			handleKey(e) {
 				if (!this.root.classList.contains('active')) return;
@@ -100,168 +99,76 @@
 				if (e.key === '0' && this.state.mode !== 'dial-in') {
 					if (this.state.mode === 'menu') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; }
 					else if (this.state.mode === 'msglist') this.menu();
-					else if (this.state.mode === 'post') this.menu();
+					else if (this.state.mode === 'post') this.messagelist();
 					else if (this.state.mode === 'file') this.menu();
 					return;
 				}
 				if (this.state.mode === 'dial-in' && (e.key === ' ' || e.key === 'Enter')) { this.setSeen(); this.menu(); return; }
 				if (this.state.mode === 'menu') {
-					if (e.key === '1') this.projectlist();
-					else if (e.key === '2') this.experiencelist();
-					else if (e.key === '3') this.educationlist();
-					else if (e.key === '4') window.location.href = '/ConnorDedicResume.pdf';
+					if (e.key === '1') this.messagelist();
+					else if (e.key === '2') this.filearea();
 				}
-				else if (this.state.mode === 'plist') { if (e.key === '1') this.viewproject1(); else if (e.key === '0') this.menu(); }
-				else if (this.state.mode === 'explist') { if (e.key === '1') this.viewexp1(); else if (e.key === '2') this.viewexp2(); else if (e.key === '0') this.menu(); }
-				else if (this.state.mode === 'edulist') { if (e.key === '1') this.viewedu1(); else if (e.key === '0') this.menu(); }
-				else if (['exp1','exp2','proj1','edu1'].includes(this.state.mode) && e.key === '0') this.menu();
+				else if (this.state.mode === 'msglist' && e.key === '1') this.viewpost();
+				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
 			}
-			projectlist() {
-				this.state.mode = 'plist';
+			messagelist() {
+				this.state.mode = 'msglist';
 				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  PROJECTS & RESEARCH                                                        │
+│  MESSAGE BOARD                                                              │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  [ 1 ] C2 Framework w/ RL & Adaptive Evasion              ACTIVE            │
+│  [ 1 ] Active Directory Attacks                                  2026-06-20 │
 │                                                                              │
 │  [1] read | [0] main menu                                                   │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
 				this.hint.textContent = '[1] read | [0] main menu';
 			}
-			viewproject1() {
-				this.state.mode = 'proj1';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  C2 FRAMEWORK WITH RL & ADAPTIVE EVASION                                    │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  Building modular C2 with reinforcement learning system that                │
-│  adaptively selects transport, beacon intervals, and retry                  │
-│  strategies to minimize detection and bypass Windows Defender.              │
-│                                                                              │
-│  TECH: C, x64dbg, PE-bear, shellcode injection, payload encryption         │
-│                                                                              │
-│  [ 0 ] back to projects                                                     │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[0] back | [ESC] exit';
-			}
-			experiencelist() {
-				this.state.mode = 'explist';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  WORK EXPERIENCE                                                            │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  [ 1 ] Cyber Deception Engineer @ Space Dynamics Lab      Jan-May 2026     │
-│  [ 2 ] SOC Analyst @ LDS & Course Architect @ BYU-I       Aug 2025-Now     │
-│                                                                              │
-│  [1-2] read | [0] main menu                                                 │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1-2] select | [0] main menu';
-			}
-			viewexp1() {
-				this.state.mode = 'exp1';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  CYBER DECEPTION ENGINEER                                                   │
-│  Space Dynamics Laboratory, Logan UT • Jan-May 2026                         │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  • Cataloged and developed cyber deception techniques                       │
-│  • Conducted forward-looking research on novel deception impact             │
-│  • Designed taxonomy for applying deception across AI, ICS, AD              │
-│  • Contributing researcher on upcoming published paper                      │
-│                                                                              │
-│  [ 0 ] back to experience                                                   │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[0] back | [ESC] exit';
-			}
-			viewexp2() {
-				this.state.mode = 'exp2';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  SOC ANALYST & COURSE ARCHITECT                                             │
-│  Church IT / BYU-Idaho • Aug 2025-Present                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  SOC (Aug-Dec 2025):                                                        │
-│  • Analyzed threats across global infrastructure                            │
-│  • Splunk, Palo Alto, Crowdstrike, Azure threat investigations              │
-│  • 24/7 SOC protecting critical systems                                     │
-│                                                                              │
-│  Course Architect (Nov 2024-Jul 2025):                                      │
-│  • Led 30+ students in defensive ops & penetration testing                  │
-│  • Built defense simulation with 40+ VMs (MITRE ATT&CK)                     │
-│  • Deployed vSphere managing 60+ cloud virtual machines                     │
-│                                                                              │
-│  [ 0 ] back to experience                                                   │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[0] back | [ESC] exit';
-			}
-			educationlist() {
-				this.state.mode = 'edulist';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  EDUCATION & CERTIFICATIONS                                                 │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  [ 1 ] BS Cybersecurity (BYU-Idaho) + Certs                                 │
-│                                                                              │
-│  [1] read | [0] main menu                                                   │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1] read | [0] main menu';
-			}
-			viewedu1() {
-				this.state.mode = 'edu1';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  EDUCATION & ACHIEVEMENTS                                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  DEGREE: BS Cybersecurity, Brigham Young University - Idaho                 │
-│                                                                              │
-│  CERTIFICATIONS:                                                             │
-│  ✓ AWS Cloud Practitioner      ✓ PenTest+                                  │
-│  ✓ Security+                   ✓ CySA+                                     │
-│  ⧗ PNPT (Incoming)                                                          │
-│                                                                              │
-│  COMPETITIONS:                                                               │
-│  • 3rd place HackUSU 2025 (600+ competitors)                                │
-│  • 5th place Rocky Mountain Cyber Defense 2024                              │
-│  • VP & Team Captain, BYU-Idaho Society of Cybersecurity                    │
-│                                                                              │
-│  [ 0 ] back to main menu                                                    │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[0] back | [ESC] exit';
-			}
-			viewproject() {
+			viewpost() {
 				this.state.mode = 'post';
 				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  C2 MALWARE FRAMEWORK & DECEPTION RESEARCH                                  │
+│  Active Directory Attacks                                                   │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  STATUS: In Development                                                      │
+│  LAB ENVIRONMENT                                                             │
+│  2HYDRA-DC         10.0.2.250                                               │
+│  punisher          10.0.2.220                                               │
+│  spiderman         10.0.2.221                                               │
 │                                                                              │
-│  OVERVIEW                                                                    │
-│  Building C2 framework with modular plugin-based implant and                 │
-│  reinforcement learning system that adaptively selects transport,            │
-│  beacon intervals, and retry strategies to minimize detection.               │
+│  ATTACK METHODOLOGY                                                          │
+│  1. Start with mitm6 and responder                                          │
+│  2. Scan to generate traffic                                                │
+│  3. Check websites for alternate paths                                      │
+│  4. Look for default creds                                                  │
+│  5. Enumerate further based on findings                                     │
 │                                                                              │
-│  COMPONENTS                                                                  │
-│  • Custom C2 server with plugin architecture                                 │
-│  • Adaptive implant with evasion capabilities                                │
-│  • Reinforcement learning agent for behavior optimization                    │
-│  • Windows Defender bypass through encrypted payloads                        │
-│  • Shellcode injection with obfuscation techniques                           │
+│  KERBEROASTING                                                               │
+│  Grab SPN hashes:                                                            │
+│  impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request             │
 │                                                                              │
-│  TECHNOLOGIES                                                                │
-│  C, x64dbg, PE-bear, PEhacker, msfvenom, Windows internals                  │
+│  GOLDEN TICKET                                                               │
+│  You need: SID and krbtgt hash                                              │
+│  privilege::debug                                                            │
+│  lsadump::lsa /inject /name:krbtgt                                          │
+│  kerberos::golden /User:<User> /domain:<domain> /sid:<SID>                 │
 │                                                                              │
-│  [ 0 ] back to projects                                                     │
+│  [ 0 ] back to message list                                                │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
 				this.hint.textContent = '[0] back | [ESC] exit';
+			}
+			filearea() {
+				this.state.mode = 'file';
+				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
+│  FILE AREA                                                                  │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [ 1 ] ConnorDedicResume.pdf                                      120 KB   │
+│                                                                              │
+│  [1] select | [0] main menu                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.hint.textContent = '[1] download | [0] main menu';
 			}
 		}
 		new BBS();
