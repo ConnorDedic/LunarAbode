@@ -22,25 +22,25 @@
 <a href="/experience.html" style="color: #d10000; text-decoration: none;">[ EXPERIENCE ]</a> <a href="/education.html" style="color: #d10000; text-decoration: none;">[ EDUCATION ]</a> <a href="/projects.html" style="color: #d10000; text-decoration: none;">[ PROJECTS ]</a>
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
-│  Offensive security researcher specializing in Windows malware development  │
+│  Offensive security researcher specializing in Windows malware development   │
 │  Active Directory exploitation, C2 frameworks, and cyber deception           │
 │                                                                              │
 │  [ EXPERTISE ]                                                               │
-│  Offensive: Malware dev, AD attacks, C2 implants, reverse engineering       │
-│  Defensive: SOC operations, threat hunting, incident response               │
-│  Languages: C, Python, Go, PowerShell, Bash, JavaScript                     │
+│  Offensive: Malware dev, AD attacks, C2 implants, reverse engineering        │
+│  Defensive: SOC operations, threat hunting, incident response                │
+│  Languages: C, Python, Go, PowerShell, Bash, JavaScript                      │
 │                                                                              │
 │  [ CURRENT WORK ]                                                            │
-│  • Cyber Deception Engineer @ Space Dynamics Lab (published researcher)     │
-│  • C2 framework w/ RL-based adaptive evasion bypassing Windows Defender     │
-│  • CTF challenge creator for BSides Utah competitions                       │
-│  • BS Cybersecurity (BYU-Idaho) | Security+, PenTest+, CySA+, AWS CP       │
+│  • Cyber Deception Engineer @ Space Dynamics Lab (published researcher)      │
+│  • C2 framework w/ RL-based adaptive evasion bypassing Windows Defender      │
+│  • CTF challenge creator for BSides Utah competitions                        │
+│  • BS Cybersecurity (BYU-Idaho) | Security+, PenTest+, CySA+, AWS CP         │
 │                                                                              │
 │  [ ACHIEVEMENTS ]                                                            │
-│  HackUSU 2025: 3rd place cybersecurity | Rocky Mountain 2024: 5th place    │
-│  VP & Team Captain, BYU-Idaho Society of Cybersecurity (15+ students)       │
+│  HackUSU 2025: 3rd place cybersecurity | Rocky Mountain 2024: 5th place      │
+│  VP & Team Captain, BYU-Idaho Society of Cybersecurity (15+ students)        │
 │                                                                              │
-│  Full details: [ EXPERIENCE ] [ EDUCATION ] [ PROJECTS ]                   │
+│  Full details: [ EXPERIENCE ] [ EDUCATION ] [ PROJECTS ]                     │
 │                                                                              │
 │  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ RESUME ]</a>                             │
 │                                                                              │
@@ -145,12 +145,12 @@
 					this.guides.forEach(guide => {
 						const paddedNum = String(guide.id).padEnd(2);
 						const paddedTitle = guide.title.padEnd(50);
-						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date}       │
+						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date}        │
 `;
 					});
 				}
 				listing += `│                                                                              │
-│  [1-${String(this.guides.length).padEnd(1)}] read | [0] main menu                                               │
+│  [1-${String(this.guides.length).padEnd(1)}] read | [0] main menu                                                  │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
 				this.content.textContent = listing;
