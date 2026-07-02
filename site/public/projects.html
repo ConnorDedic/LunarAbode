@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Connor Dedic | Projects & Research</title>
+	<link rel="stylesheet" href="/styles.css" />
+	<style>
+		body { padding: 2rem; max-width: 900px; margin: 0 auto; }
+		.nav { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #333; }
+		.nav a { margin-right: 1.5rem; color: #d10000; text-decoration: none; }
+		.nav a:hover { text-decoration: underline; }
+		.nav a.active { color: #fefefe; text-decoration: underline; }
+		h1 { color: #d10000; margin-bottom: 2rem; }
+		.project { margin-bottom: 2rem; padding: 1.5rem; background: rgba(209, 0, 0, 0.05); border-left: 3px solid #d10000; border-radius: 4px; }
+		.project h2 { color: #d10000; font-size: 1.1rem; margin: 0 0 0.5rem 0; }
+		.project-status { color: #aaa; font-size: 0.9rem; margin-bottom: 1rem; }
+		.project-desc { color: #ddd; line-height: 1.6; margin-bottom: 1rem; }
+		.project ul { margin: 0.5rem 0 0 1.5rem; color: #ddd; }
+		.project li { margin: 0.3rem 0; }
+		.tech-stack { background: rgba(100, 100, 150, 0.1); padding: 1rem; border-radius: 4px; margin-top: 0.5rem; }
+		.tech-stack strong { color: #d10000; }
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<a href="/">← Home</a>
+		<a href="/experience.html">Experience</a>
+		<a href="/education.html">Education</a>
+		<a href="/projects.html" class="active">Projects</a>
+	</div>
+
+	<h1>Projects & Research</h1>
+
+	<div class="project">
+		<h2>C2 Framework with RL-Based Adaptive Evasion</h2>
+		<div class="project-status">Status: In Development</div>
+		<div class="project-desc">
+			Building a modular C2 (Command & Control) framework with plugin-based implant architecture and reinforcement learning system that adaptively selects transport mechanisms, beacon intervals, and retry strategies to minimize detection.
+		</div>
+		<div class="project-desc">
+			<strong>Key Features:</strong>
+			<ul>
+				<li>Modular plugin-based implant architecture</li>
+				<li>Reinforcement learning for adaptive evasion</li>
+				<li>Dynamic transport selection</li>
+				<li>Windows Defender bypass through encrypted payloads</li>
+				<li>Shellcode injection with obfuscation techniques</li>
+			</ul>
+		</div>
+		<div class="tech-stack">
+			<strong>Tech Stack:</strong> C, x64dbg, PE-bear, PEhacker, msfvenom, Windows internals
+		</div>
+	</div>
+
+	<div class="project">
+		<h2>CTF Challenge Creator</h2>
+		<div class="project-status">BSides Utah • August 2025 - Present</div>
+		<div class="project-desc">
+			Authoring reverse engineering and binary exploitation challenges for cybersecurity competitions.
+		</div>
+		<div class="project-desc">
+			<strong>Challenge Types:</strong>
+			<ul>
+				<li>Reverse engineering challenges in C and Go</li>
+				<li>Buffer overflow exploitations</li>
+				<li>Custom encryption scheme analysis</li>
+				<li>x86/x64 stack exploitation with calling-convention analysis</li>
+				<li>Web-based cryptography challenges</li>
+			</ul>
+		</div>
+		<div class="tech-stack">
+			<strong>Tech Stack:</strong> C, Go, Docker, Bash, Nginx, Ghidra, reverse engineering tools
+		</div>
+	</div>
+
+	<div class="project">
+		<h2>Defense Simulation Lab with 40+ VMs</h2>
+		<div class="project-status">BYU-Idaho • November 2024 - July 2025</div>
+		<div class="project-desc">
+			Developed a comprehensive defense simulation environment for cybersecurity students to practice defending against live multi-phase cyberattacks following MITRE ATT&CK methodology.
+		</div>
+		<div class="project-desc">
+			<strong>Components:</strong>
+			<ul>
+				<li>40+ virtual machines for attack/defense scenarios</li>
+				<li>Automated attack simulation using Bash scripting</li>
+				<li>Student-driven threat hunting exercises</li>
+				<li>vSphere infrastructure for VM management</li>
+				<li>60+ total VMs in student lab environments</li>
+			</ul>
+		</div>
+		<div class="tech-stack">
+			<strong>Tech Stack:</strong> Bash, vSphere, VMware, MITRE ATT&CK framework, network isolation
+		</div>
+	</div>
+
+	<div class="project">
+		<h2>Cyber Deception Research & Publication</h2>
+		<div class="project-status">Space Dynamics Laboratory • January - May 2026</div>
+		<div class="project-desc">
+			Contributing researcher on an upcoming academic publication covering novel cyber deception techniques. Developed taxonomy and methodology for applying deception strategies across multiple domains.
+		</div>
+		<div class="project-desc">
+			<strong>Research Focus:</strong>
+			<ul>
+				<li>Novel cyber deception techniques</li>
+				<li>Deception across AI systems, ICS, Active Directory, and bespoke systems</li>
+				<li>Taxonomy development for deception methodologies</li>
+				<li>Operational impact assessment</li>
+				<li>Publication preparation for peer review</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
