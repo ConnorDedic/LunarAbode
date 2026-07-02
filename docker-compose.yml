@@ -7,14 +7,16 @@ services:
     restart: unless-stopped
 
   guides:
-    image: ghcr.io/connordedic/lunarabode:main
+    image: node:22-alpine
     container_name: guides-server
     working_dir: /app
-    command: npm run guides
+    command: sh -c "npm install --production && npm run guides"
     expose:
       - 3001
     restart: unless-stopped
     volumes:
+      - ./guides-server.js:/app/guides-server.js
+      - ./package.json:/app/package.json
       - ./guides:/app/guides
 
   caddy:
