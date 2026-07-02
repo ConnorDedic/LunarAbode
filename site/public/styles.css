@@ -36,7 +36,6 @@ pre {
 	font-size: 17px;
 	margin: 0;
 	overflow: hidden;
-	min-width: min-content;
 }
 
 a {
@@ -79,7 +78,6 @@ a:hover {
 	font-family: "gohu", "Lucida Console", monospace, Monaco;
 	font-size: 17px;
 	line-height: 1.0;
-	min-width: min-content;
 }
 
 .hint {
@@ -103,40 +101,40 @@ a:hover {
 /* Mobile Optimization */
 @media (max-width: 768px) {
 	body {
-		font-size: 14px;
+		font-size: 10px;
 	}
 
 	pre {
-		font-size: 14px;
-		overflow: auto;
+		font-size: 10px;
+		overflow: hidden;
 	}
 
 	.page {
-		padding: 0.5rem;
-		align-items: flex-start;
-		justify-content: flex-start;
+		padding: 0.3rem;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#bbs-root.active {
-		align-items: flex-start;
-		justify-content: flex-start;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#bbs-content {
-		font-size: 14px;
-		padding: 0.2rem 0.5rem;
-		overflow: auto;
+		font-size: 10px;
+		padding: 0.1rem 0.3rem;
+		overflow: hidden;
 	}
 
 	.bbs-container {
-		overflow: auto;
-		align-items: flex-start;
-		justify-content: flex-start;
+		overflow: hidden;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.hint {
-		font-size: 11px;
-		padding: 0.2rem 0.5rem;
+		font-size: 9px;
+		padding: 0.1rem 0.3rem;
 	}
 
 	.invisible-link {
@@ -148,40 +146,40 @@ a:hover {
 /* Small phones */
 @media (max-width: 480px) {
 	body {
-		font-size: 12px;
+		font-size: 8px;
 	}
 
 	pre {
-		font-size: 12px;
-		overflow: auto;
+		font-size: 8px;
+		overflow: hidden;
 	}
 
 	.page {
-		padding: 0.25rem;
-		align-items: flex-start;
-		justify-content: flex-start;
+		padding: 0.2rem;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#bbs-root.active {
-		align-items: flex-start;
-		justify-content: flex-start;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#bbs-content {
-		font-size: 12px;
-		padding: 0.1rem 0.3rem;
-		overflow: auto;
+		font-size: 8px;
+		padding: 0.05rem 0.2rem;
+		overflow: hidden;
 	}
 
 	.bbs-container {
-		overflow: auto;
-		align-items: flex-start;
-		justify-content: flex-start;
+		overflow: hidden;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.hint {
-		font-size: 10px;
-		padding: 0.1rem 0.3rem;
+		font-size: 7px;
+		padding: 0.05rem 0.2rem;
 	}
 
 	.invisible-link {
