@@ -6,6 +6,17 @@ services:
       - 80
     restart: unless-stopped
 
+  guides:
+    image: ghcr.io/connordedic/lunarabode:main
+    container_name: guides-server
+    working_dir: /app
+    command: npm run guides
+    expose:
+      - 3001
+    restart: unless-stopped
+    volumes:
+      - ./guides:/app/guides
+
   caddy:
     image: caddy:alpine
     container_name: caddy-proxy

@@ -1,0 +1,13 @@
+{
+  "name": "lunarabode",
+  "version": "1.0.0",
+  "description": "Cybersecurity portfolio with BBS interface",
+  "main": "guides-server.js",
+  "type": "module",
+  "scripts": {
+    "guides": "node guides-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

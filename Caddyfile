@@ -1,10 +1,16 @@
 # Production setup for vosvidemus.online:
 vosvidemus.online {
+	handle /api/* {
+		reverse_proxy guides:3001
+	}
 	reverse_proxy site:80
 }
 
 # Also handle www subdomain:
 www.vosvidemus.online {
+	handle /api/* {
+		reverse_proxy guides:3001
+	}
 	reverse_proxy site:80
 }
 
