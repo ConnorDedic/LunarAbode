@@ -19,7 +19,7 @@
 │                   Offensive Security Researcher & Red Teamer                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
-
+<a href="/experience.html" style="color: #d10000; text-decoration: none;">[ EXPERIENCE ]</a> <a href="/education.html" style="color: #d10000; text-decoration: none;">[ EDUCATION ]</a> <a href="/projects.html" style="color: #d10000; text-decoration: none;">[ PROJECTS ]</a>
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
 │  Security engineer specializing in Windows malware development, cyber        │
@@ -47,12 +47,6 @@
 │  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ RESUME ]</a>                                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘</pre>
-	</div>
-
-	<div style="text-align: center; margin: 1rem 0; font-size: 12px;">
-		<a href="/experience.html" style="color: #d10000; text-decoration: none; margin: 0 1rem;">[ EXPERIENCE ]</a>
-		<a href="/education.html" style="color: #d10000; text-decoration: none; margin: 0 1rem;">[ EDUCATION ]</a>
-		<a href="/projects.html" style="color: #d10000; text-decoration: none; margin: 0 1rem;">[ PROJECTS ]</a>
 	</div>
 
 	<div id="bbs-root">
@@ -114,7 +108,10 @@
 					if (e.key === '1') this.messagelist();
 					else if (e.key === '2') this.filearea();
 				}
-				else if (this.state.mode === 'msglist' && e.key === '1') this.viewpost();
+				else if (this.state.mode === 'msglist') {
+					if (e.key >= '1' && e.key <= '6') { this.selectedPost = parseInt(e.key); this.viewpost(); }
+					else if (e.key === '0') this.menu();
+				}
 				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
 			}
 			messagelist() {
@@ -123,45 +120,152 @@
 │  MESSAGE BOARD                                                              │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  [ 1 ] Active Directory Attacks                                  2026-06-20 │
+│  [ 1 ] Windows API Fundamentals                                  2026-06-20 │
+│  [ 2 ] Portable Executable (PE) Format                           2026-06-20 │
+│  [ 3 ] Windows Memory Architecture                               2026-06-20 │
+│  [ 4 ] Dynamic Link Library (DLL) Injection                      2026-06-20 │
+│  [ 5 ] Payload Encryption & Obfuscation                          2026-06-20 │
+│  [ 6 ] Windows Structures & Data Types                           2026-06-20 │
 │                                                                              │
-│  [1] read | [0] main menu                                                   │
+│  [1-6] read | [0] main menu                                                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1] read | [0] main menu';
+				this.hint.textContent = '[1-6] select | [0] main menu';
 			}
 			viewpost() {
 				this.state.mode = 'post';
-				this.content.textContent = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  Active Directory Attacks                                                   │
+				const posts = {
+					1: `┌──────────────────────────────────────────────────────────────────────────────┐
+│  WINDOWS API FUNDAMENTALS                                                   │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  LAB ENVIRONMENT                                                             │
-│  2HYDRA-DC         10.0.2.250                                               │
-│  punisher          10.0.2.220                                               │
-│  spiderman         10.0.2.221                                               │
+│  VARIABLE TYPES                                                              │
+│  DWORD - 32 bit unsigned integer                                            │
+│  HANDLE - States an object managed by the OS                                │
+│  HMODULE - Handle to a module (DLL or EXE)                                  │
+│  LPCSTR/PCSTR - Pointer to constant strings (const char*)                   │
+│  LPSTR/PSTR - Pointer to readable string (char*)                            │
+│  LPCWSTR/PCWSTR - Pointer to constant Unicode string                        │
+│  LPWSTR/PWSTR - Pointer to Unicode string (wchar*)                          │
+│  PVOID - Void pointer to any data type                                      │
+│  ULONG_PTR - Unsigned integer sized to OS ARCH (32/64 bit)                  │
 │                                                                              │
-│  ATTACK METHODOLOGY                                                          │
-│  1. Start with mitm6 and responder                                          │
-│  2. Scan to generate traffic                                                │
-│  3. Check websites for alternate paths                                      │
-│  4. Look for default creds                                                  │
-│  5. Enumerate further based on findings                                     │
-│                                                                              │
-│  KERBEROASTING                                                               │
-│  Grab SPN hashes:                                                            │
-│  impacket-GetUserSPNs <DOMAIN/user:pass> -dc-ip <ip> -request             │
-│                                                                              │
-│  GOLDEN TICKET                                                               │
-│  You need: SID and krbtgt hash                                              │
-│  privilege::debug                                                            │
-│  lsadump::lsa /inject /name:krbtgt                                          │
-│  kerberos::golden /User:<User> /domain:<domain> /sid:<SID>                 │
+│  ERROR CODES                                                                 │
+│  5 - ERROR_ACCESS_DENIED                                                     │
+│  2 - ERROR_FILE_NOT_FOUND                                                    │
+│  87 - ERROR_INVALID_PARAMETER                                                │
 │                                                                              │
 │  [ 0 ] back to message list                                                │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘`;
+└──────────────────────────────────────────────────────────────────────────────┘`,
+					2: `┌──────────────────────────────────────────────────────────────────────────────┐
+│  PORTABLE EXECUTABLE (PE) FORMAT                                            │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  PE STRUCTURE OVERVIEW                                                       │
+│  • DOS Header - DOS MZ signature and stub program                           │
+│  • PE Signature - "PE\0\0" - Marks start of actual PE                       │
+│  • File Header - Machine type, # of sections, timestamp                     │
+│  • Optional Header - Entry point, image base, subsystem                     │
+│  • Section Headers - Define sections (.text, .data, .reloc, etc)            │
+│  • Sections - Actual program code and data                                  │
+│                                                                              │
+│  KEY SECTIONS                                                                │
+│  .text - Executable code and readonly data                                  │
+│  .data - Initialized global/static variables                                │
+│  .reloc - Relocation information                                            │
+│  .rsrc - Resource data (icons, dialogs, etc)                                │
+│                                                                              │
+│  [ 0 ] back to message list                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`,
+					3: `┌──────────────────────────────────────────────────────────────────────────────┐
+│  WINDOWS MEMORY ARCHITECTURE                                                │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  VIRTUAL ADDRESS SPACE (32-bit)                                              │
+│  0x00000000 - 0x0000FFFF - User Mode (user applications)                   │
+│  0x00400000 - Application Base (code loaded here by default)                │
+│  0x7FFFFFFF - Top of user mode                                              │
+│  0x80000000 - 0xFFFFFFFF - Kernel Mode (OS kernel)                         │
+│                                                                              │
+│  MEMORY REGIONS                                                              │
+│  Heap - Dynamic memory allocation (malloc/new)                              │
+│  Stack - Local variables, function parameters, return addresses             │
+│  Text Segment - Read-only code section                                      │
+│  Data Segment - Initialized global/static variables                         │
+│  BSS Segment - Uninitialized global/static variables                        │
+│                                                                              │
+│  [ 0 ] back to message list                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`,
+					4: `┌──────────────────────────────────────────────────────────────────────────────┐
+│  DYNAMIC LINK LIBRARY (DLL) INJECTION                                       │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  DLL BASICS                                                                  │
+│  • Windows shared libraries loaded at runtime                               │
+│  • Functions exported for use by other programs                             │
+│  • Can be injected into running processes                                   │
+│  • Default search path: App dir → System → Windows\System32                │
+│                                                                              │
+│  INJECTION TECHNIQUES                                                        │
+│  • CreateRemoteThread - Inject via thread creation                          │
+│  • SetWindowsHookEx - Hook window messages                                  │
+│  • DLL Preloading - Replace legitimate DLL                                  │
+│  • Reflective Injection - Load from memory, no file                         │
+│  • Process Hollowing - Replace process memory                               │
+│                                                                              │
+│  [ 0 ] back to message list                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`,
+					5: `┌──────────────────────────────────────────────────────────────────────────────┐
+│  PAYLOAD ENCRYPTION & OBFUSCATION                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  OBFUSCATION TECHNIQUES                                                      │
+│  • Dead Code - Add non-functional code to confuse analysis                  │
+│  • Code Reordering - Rearrange instruction order                            │
+│  • API Hashing - Hide strings and API calls via hashing                     │
+│  • String Encryption - Encrypt constant strings in binary                   │
+│  • Control Flow Flattening - Flatten loops and conditions                   │
+│                                                                              │
+│  ENCRYPTION METHODS                                                          │
+│  • XOR - Simple byte-wise encryption                                        │
+│  • AES - Strong encryption for payloads                                     │
+│  • RC4 - Stream cipher (faster but weaker than AES)                         │
+│  • Custom Algorithms - Unique encryption to evade detection                 │
+│                                                                              │
+│  [ 0 ] back to message list                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`,
+					6: `┌──────────────────────────────────────────────────────────────────────────────┐
+│  WINDOWS STRUCTURES & DATA TYPES                                            │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  COMMON STRUCTURES                                                           │
+│  • PROCESS_INFORMATION - Process handle, thread handle, IDs                 │
+│  • STARTUPINFO - Console window properties                                  │
+│  • CONTEXT - CPU registers and state                                        │
+│  • MEMORY_BASIC_INFORMATION - Memory region information                     │
+│  • MODULEENTRY32 - Loaded module information                                │
+│                                                                              │
+│  CALLING CONVENTIONS                                                         │
+│  • __cdecl - C default (params right-to-left on stack)                      │
+│  • __stdcall - Windows API (params right-to-left on stack)                  │
+│  • __fastcall - Params in registers (ECX, EDX then stack)                   │
+│  • __thiscall - C++ member functions (ECX = this pointer)                   │
+│                                                                              │
+│  [ 0 ] back to message list                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`
+				};
+				this.content.textContent = posts[this.selectedPost] || posts[1];
 				this.hint.textContent = '[0] back | [ESC] exit';
+			}
+			selectPost(n) {
+				this.selectedPost = n;
+				this.viewpost();
 			}
 			filearea() {
 				this.state.mode = 'file';
