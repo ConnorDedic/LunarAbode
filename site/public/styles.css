@@ -3,6 +3,13 @@
 	src: url("/fonts/gohu.woff") format('woff');
 }
 
+@font-face {
+	font-family: "Hack";
+	src: url("https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack-regular.woff2") format('woff2'),
+	     url("https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack-regular.woff") format('woff');
+	font-weight: 400;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -12,7 +19,7 @@
 html, body {
 	background: #0c0d10;
 	color: #fefefe;
-	font-family: "gohu", "Lucida Console", monospace, Monaco;
+	font-family: "Hack", "Lucida Console", monospace, Monaco;
 	height: 100%;
 	overflow: hidden;
 }
@@ -32,7 +39,7 @@ body {
 
 pre {
 	white-space: pre;
-	font-family: "gohu", "Lucida Console", monospace, Monaco;
+	font-family: "Hack", "Lucida Console", monospace, Monaco;
 	font-size: 17px;
 	margin: 0;
 	overflow: hidden;
@@ -75,7 +82,7 @@ a:hover {
 	flex: 1;
 	overflow: hidden;
 	padding: 0.3rem 0.8rem;
-	font-family: "gohu", "Lucida Console", monospace, Monaco;
+	font-family: "Hack", "Lucida Console", monospace, Monaco;
 	font-size: 17px;
 	line-height: 1.0;
 }
