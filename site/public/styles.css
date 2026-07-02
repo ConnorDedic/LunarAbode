@@ -101,16 +101,16 @@ a:hover {
 /* Mobile Optimization */
 @media (max-width: 768px) {
 	body {
-		font-size: 10px;
+		font-size: 9px;
 	}
 
 	pre {
-		font-size: 10px;
+		font-size: 9px;
 		overflow: hidden;
 	}
 
 	.page {
-		padding: 0.3rem;
+		padding: 0.5rem;
 		align-items: center;
 		justify-content: center;
 	}
@@ -121,7 +121,7 @@ a:hover {
 	}
 
 	#bbs-content {
-		font-size: 10px;
+		font-size: 9px;
 		padding: 0.1rem 0.3rem;
 		overflow: hidden;
 	}
@@ -146,16 +146,16 @@ a:hover {
 /* Small phones */
 @media (max-width: 480px) {
 	body {
-		font-size: 8px;
+		font-size: 7px;
 	}
 
 	pre {
-		font-size: 8px;
+		font-size: 7px;
 		overflow: hidden;
 	}
 
 	.page {
-		padding: 0.2rem;
+		padding: 0.4rem;
 		align-items: center;
 		justify-content: center;
 	}
@@ -166,7 +166,7 @@ a:hover {
 	}
 
 	#bbs-content {
-		font-size: 8px;
+		font-size: 7px;
 		padding: 0.05rem 0.2rem;
 		overflow: hidden;
 	}
