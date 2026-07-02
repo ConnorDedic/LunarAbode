@@ -74,11 +74,14 @@ a:hover {
 
 #bbs-content {
 	flex: 1;
-	overflow: hidden;
+	overflow-y: auto;
+	overflow-x: hidden;
 	padding: 0.3rem 0.8rem;
 	font-family: "gohu", "Lucida Console", monospace, Monaco;
 	font-size: 17px;
 	line-height: 1.0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 
 .hint {
