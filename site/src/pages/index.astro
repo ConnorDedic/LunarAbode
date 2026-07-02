@@ -97,12 +97,13 @@
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
 │  [ 1 ] MESSAGE BOARD                                                         │
-│  [ 2 ] FILE AREA                                                             │
+│  [ 2 ] GUIDES & NOTES                                                        │
+│  [ 3 ] FILE AREA                                                             │
 │                                                                              │
 │  [ 0 ] LOG OFF                                                               │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1-2] select | [0] exit';
+				this.hint.textContent = '[1-3] select | [0] exit';
 			}
 			handleKey(e) {
 				if (!this.root.classList.contains('active')) return;
@@ -110,18 +111,25 @@
 				if (e.key === '0' && this.state.mode !== 'dial-in') {
 					if (this.state.mode === 'menu') { this.root.classList.remove('active'); this.state.mode = 'dial-in'; }
 					else if (this.state.mode === 'msglist') this.menu();
+					else if (this.state.mode === 'guidelist') this.menu();
 					else if (this.state.mode === 'post') this.messagelist();
+					else if (this.state.mode === 'guide') this.guidelist();
 					else if (this.state.mode === 'file') this.menu();
 					return;
 				}
 				if (this.state.mode === 'dial-in' && (e.key === ' ' || e.key === 'Enter')) { this.setSeen(); this.menu(); return; }
 				if (this.state.mode === 'menu') {
 					if (e.key === '1') this.messagelist();
-					else if (e.key === '2') this.filearea();
+					else if (e.key === '2') this.guidelist();
+					else if (e.key === '3') this.filearea();
 				}
 				else if (this.state.mode === 'msglist') {
+					if (e.key === '1') { this.selectedPost = 1; this.currentPostOffset = 0; this.viewpost(); }
+					else if (e.key === '0') this.menu();
+				}
+				else if (this.state.mode === 'guidelist') {
 					const num = parseInt(e.key);
-					if (num >= 1 && num <= this.guides.length) { this.selectedPost = num; this.currentPostOffset = 0; this.viewpost(); }
+					if (num >= 1 && num <= this.guides.length) { this.selectedGuide = num; this.currentPostOffset = 0; this.viewguide(); }
 					else if (e.key === '0') this.menu();
 				}
 				else if (this.state.mode === 'post') {
@@ -129,26 +137,40 @@
 					else if (e.key === 'PageUp') { this.currentPostOffset = Math.max(0, this.currentPostOffset - 20); this.viewpost(); }
 					else if (e.key === '0') this.messagelist();
 				}
+				else if (this.state.mode === 'guide') {
+					if (e.key === 'PageDown') { this.currentPostOffset += 20; this.viewguide(); }
+					else if (e.key === 'PageUp') { this.currentPostOffset = Math.max(0, this.currentPostOffset - 20); this.viewguide(); }
+					else if (e.key === '0') this.guidelist();
+				}
 				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
 			}
 			messagelist() {
 				this.state.mode = 'msglist';
+				const listing = `┌──────────────────────────────────────────────────────────────────────────────┐
+│  MESSAGE BOARD                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [ 1 ] System Announcements                                     2026-06-20 │
+│                                                                              │
+│  [1] read | [0] main menu                                                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘`;
+				this.content.textContent = listing;
+				this.hint.textContent = '[1] select | [0] main menu';
+			}
+			guidelist() {
+				this.state.mode = 'guidelist';
 				let listing = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  MESSAGE BOARD                                                               │
+│  GUIDES & NOTES                                                             │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 `;
-				if (this.guides.length === 0) {
-					listing += `│  Loading guides...                                                          │
+				this.guides.forEach(guide => {
+					const paddedNum = String(guide.id).padEnd(2);
+					const paddedTitle = guide.title.padEnd(50);
+					listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date}        │
 `;
-				} else {
-					this.guides.forEach(guide => {
-						const paddedNum = String(guide.id).padEnd(2);
-						const paddedTitle = guide.title.padEnd(50);
-						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date}        │
-`;
-					});
-				}
+				});
 				listing += `│                                                                              │
 │  [1-${String(this.guides.length).padEnd(1)}] read | [0] main menu                                                  │
 │                                                                              │
@@ -158,7 +180,22 @@
 			}
 			viewpost() {
 				this.state.mode = 'post';
-				const posts = {
+				const message = `System Announcements
+
+This is the message board.
+Post announcements and discussions here.`;
+				this.currentPostLines = message.split('\n');
+				const endLine = Math.min(this.currentPostOffset + 20, this.currentPostLines.length);
+				const displayLines = this.currentPostLines.slice(this.currentPostOffset, endLine);
+				const displayText = displayLines.join('\n');
+				const pageNum = Math.floor(this.currentPostOffset / 20) + 1;
+				const totalPages = Math.ceil(this.currentPostLines.length / 20);
+				this.content.textContent = displayText;
+				this.hint.textContent = `[PgUp/PgDn] scroll (${pageNum}/${totalPages}) | [0] back`;
+			}
+			viewguide() {
+				this.state.mode = 'guide';
+				const guides = {
 					1: `WINDOWS API FUNDAMENTALS
 
 Variable Types
@@ -322,7 +359,7 @@ BurpSuite "Limit Scope" in proxy settings
 site:<url>, "text", AND, filetype:<ext>, -<not>
 git clone https://github.com/insidetrust/statistically-likely-usernames.git`
 				};
-				const fullText = posts[this.selectedPost] || posts[1];
+				const fullText = guides[this.selectedGuide] || guides[1];
 				this.currentPostLines = fullText.split('\n');
 				const endLine = Math.min(this.currentPostOffset + 20, this.currentPostLines.length);
 				const displayLines = this.currentPostLines.slice(this.currentPostOffset, endLine);
