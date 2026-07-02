@@ -70,8 +70,16 @@
 			}
 			async loadGuides() {
 				try {
-					const response = await fetch('/api/guides');
-					this.guides = await response.json();
+					const controller = new AbortController();
+					const timeout = setTimeout(() => controller.abort(), 3000);
+					const response = await fetch('/api/guides', { signal: controller.signal });
+					clearTimeout(timeout);
+					if (response.ok) {
+						this.guides = await response.json();
+					} else {
+						console.error('API returned status:', response.status);
+						this.guides = [];
+					}
 				} catch (error) {
 					console.error('Failed to load guides:', error);
 					this.guides = [];
@@ -139,16 +147,18 @@
 │                                                                              │
 `;
 				if (this.guides.length === 0) {
-					listing += `│  Loading guides...                                                          │`;
+					listing += `│  Loading guides...                                                          │
+`;
 				} else {
 					this.guides.forEach(guide => {
 						const paddedNum = String(guide.id).padEnd(2);
 						const paddedTitle = guide.title.padEnd(50);
-						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date} │\n`;
+						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date} │
+`;
 					});
 				}
 				listing += `│                                                                              │
-│  [1-${this.guides.length}] read | [0] main menu                                                 │
+│  [1-${String(this.guides.length).padEnd(1)}] read | [0] main menu                                               │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
 				this.content.textContent = listing;
