@@ -1,8 +1,6 @@
 services:
   site:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/connordedic/lunarabode:main
     container_name: portfolio-site
     expose:
       - 80
