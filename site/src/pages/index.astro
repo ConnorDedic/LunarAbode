@@ -134,7 +134,7 @@
 			messagelist() {
 				this.state.mode = 'msglist';
 				let listing = `┌──────────────────────────────────────────────────────────────────────────────┐
-│  MESSAGE BOARD                                                              │
+│  MESSAGE BOARD                                                               │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 `;
@@ -145,7 +145,7 @@
 					this.guides.forEach(guide => {
 						const paddedNum = String(guide.id).padEnd(2);
 						const paddedTitle = guide.title.padEnd(50);
-						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date} │
+						listing += `│  [ ${paddedNum} ] ${paddedTitle} ${guide.date}       │
 `;
 					});
 				}
