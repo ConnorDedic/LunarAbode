@@ -42,7 +42,7 @@
 │                                                                              │
 │  Full details: [ EXPERIENCE ] [ EDUCATION ] [ PROJECTS ]                     │
 │                                                                              │
-│  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ RESUME ]</a>                             │
+│  <a href="mailto:connordedicpro@gmail.com">[ EMAIL ]</a> <a href="https://github.com/ConnorDedic" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a> <a href="https://linkedin.com/in/connor-dedic" target="_blank" rel="noopener noreferrer">[ LINKEDIN ]</a> <a href="/ConnorDedicResume.pdf">[ RESUME ]</a> <a href="/Beyond-the-Honeypot.pdf">[ PAPER ]</a>                       │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘</pre>
 	</div>
@@ -142,7 +142,10 @@
 					else if (e.key === 'PageUp') { this.currentPostOffset = Math.max(0, this.currentPostOffset - 20); this.viewguide(); }
 					else if (e.key === '0') this.guidelist();
 				}
-				else if (this.state.mode === 'file' && e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
+				else if (this.state.mode === 'file') {
+					if (e.key === '1') window.location.href = '/ConnorDedicResume.pdf';
+					else if (e.key === '2') window.location.href = '/Beyond-the-Honeypot.pdf';
+				}
 			}
 			messagelist() {
 				this.state.mode = 'msglist';
@@ -387,11 +390,12 @@ github.com/ConnorDedic/Cynosure`
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  [ 1 ] ConnorDedicResume.pdf                                      120 KB   │
+│  [ 2 ] Beyond-the-Honeypot.pdf - Interactionless Cyber Deception  415 KB   │
 │                                                                              │
-│  [1] select | [0] main menu                                                │
+│  [1-2] select | [0] main menu                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘`;
-				this.hint.textContent = '[1] download | [0] main menu';
+				this.hint.textContent = '[1-2] select | [0] main menu';
 			}
 		}
 		new BBS();
